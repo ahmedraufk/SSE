@@ -6,9 +6,7 @@ var mariadb = require('mariadb');
 app.use(express.json());
 app.use(express.urlencoded());
 
-
-
-var db = mariadb.createPool({
+var con = mariadb.createPool({
       host: "localhost",
       port: 3306,
       user: "adminsse",
@@ -16,8 +14,49 @@ var db = mariadb.createPool({
       database: "sse",
       connectionLimit: 5
     });
- message = null;
+message = null;
 
+app.post('/', function(req, res) {
+    const twiml = new MessagingResponse();
+    con.getConnection(function(err) {
+        minutes = req.body.Body;
+        number = req.body.To;
+        if (parseInt(minutes) !== parseInt(minutes) || parseInt(minutes) <= 0) {
+            console.log("string")
+            twiml.message("Please write the number of minutes with digits rather than letters (for example, type 30 instead of thirty). Thank you for helping out!");
+            res.writeHead(200, {'Content-Type': 'text/xml'});
+            res.end(twiml.toString());
+        }
+        else {
+            var today = new Date();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            twiml.message("Thank you for your response! surveylink.com");
+            var tableQuery = "select * from precinctdata"
+            con.query(tableQuery, function (err, result) {
+                if (err) throw err;
+                i = 0;
+                for (precinct in result) {
+                    if (number == result[i].number) {
+                        id = result[i].precinctdata_id;
+                        var generalInsertQuery = "insert into precinct (id, time, idPrecinct, minutes) values ?";
+                        var insertQuery = generalInsertQuery.replace("precinct", "precinct" + result[i].precinctdata_id.toString())
+                        var values = [[null, time, id, parseInt(minutes)]];
+                        con.query(insertQuery, [values], function (err) {
+                            if (err) throw err;
+                            console.log("1 record inserted");
+                        });
+                        res.writeHead(200, {'Content-Type': 'text/xml'});
+                        res.end(twiml.toString());
+                    }
+                    i += 1
+                }
+            });
+        }
+    });
+
+});
+
+/*
 app.get('/',function(req,res) {
     db.query("SELECT * FROM waitTimes")
         .then(rows => {
@@ -29,7 +68,7 @@ app.get('/',function(req,res) {
             throw err;
         });
 });
-
+*/
 
 //  app.post('/', function(req, res) {
 //     const twiml = new MessagingResponse();
