@@ -1,6 +1,3 @@
-
-#!/bin/bash
-
 echo "Deployment starting...\n"
 cd ../app
 rm -rf build node_modules
