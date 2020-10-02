@@ -15,7 +15,7 @@ var con = mariadb.createPool({
       connectionLimit: 5
     });
 message = null;
-
+/*
 app.post('/', function(req, res) {
     const twiml = new MessagingResponse();
     con.getConnection(function(err) {
@@ -55,8 +55,8 @@ app.post('/', function(req, res) {
     });
 
 });
+*/
 
-/*
 app.get('/',function(req,res) {
     db.query("SELECT * FROM waitTimes")
         .then(rows => {
@@ -68,7 +68,7 @@ app.get('/',function(req,res) {
             throw err;
         });
 });
-*/
+
 
 //  app.post('/', function(req, res) {
 //     const twiml = new MessagingResponse();
