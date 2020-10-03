@@ -58,15 +58,7 @@ app.post('/', function(req, res) {
 */
 
 app.get('/',function(req,res) {
-    db.query("SELECT * FROM waitTimes")
-        .then(rows => {
-            res.json(rows);
-        })
-        .catch(err =>{
-
-            console.log(err);
-            throw err;
-        });
+  res.send("hello);
 });
 
 
