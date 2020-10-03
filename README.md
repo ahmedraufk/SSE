@@ -1,2 +1,0 @@
-# sse
-SSE Bot

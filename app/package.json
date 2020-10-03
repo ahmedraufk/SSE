@@ -1,0 +1,31 @@
+{
+  "dependencies": {
+    "app-root-path": "^3.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "install": "^0.13.0",
+    "lodash": "^4.17.20",
+    "mariadb": "^2.4.2",
+    "morgan": "^1.10.0",
+    "twilio": "^3.49.4",
+    "winston": "^3.3.3"
+  },
+  "description": "Chatbot for 2020 election wait times.",
+  "devDependencies": {
+    "jest": "^26.4.2",
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2"
+  },
+  "license": "MIT",
+  "main": "server.js",
+  "name": "api",
+  "repository": {
+    "type": "git",
+    "url": "https://github.gatech.edu/ez4/sse.git"
+  },
+  "scripts": {
+    "start": "nodemon server.js --watch ./*",
+    "test": "jest --detectOpenHandles"
+  },
+  "version": "1.0.0"
+}
