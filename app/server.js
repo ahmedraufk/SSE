@@ -58,7 +58,7 @@ app.post('/', function(req, res) {
 */
 
 app.get('/',function(req,res) {
-  res.writeHead(200, {'Content-Type': 'text/xml'});
+  res.writeHead(200, {'Content-Type': 'text/plain'});
   res.end("hello");
 });
 
