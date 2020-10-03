@@ -1,6 +1,7 @@
 import React from 'react';
 import Menu from '../menu/Menu';
 import "./Home.css";
+import Popup from "../popup/Popup";
 import SearchDrop from "../searchdrop/Searchdrop";
 import {Container,Col, Row,Button} from "react-bootstrap";
 
@@ -8,7 +9,6 @@ function Home() {
 
     return (
         <div className="home">
-            <Menu />
             <Container id="header">
                 <Row>
                     <Col md={{ span: 5, offset: 5}}>
@@ -31,7 +31,7 @@ function Home() {
                        <Button variant="primary">Search</Button>{' '}
                    </Col>
                     <Col>
-                        <Button variant="primary">I don't know my polling place</Button>{' '}
+                        <Popup />
                     </Col>
                 </Row>
 
