@@ -1,7 +1,7 @@
 import './Search.css';
 import Popup from "../popup/Popup";
 import React, {useState} from 'react';
-import {Form, Container, ListGroup, ListGroupItem} from "react-bootstrap";
+import {Form, Container, ListGroup} from "react-bootstrap";
 
 
 function Search(props) {
@@ -33,15 +33,15 @@ function Search(props) {
           </div>
           { !hidden &&
             <div id="dropdown">
-              <ListGroup id={"searchResultsGroup"}>
+              <ListGroup id={"searchLocationsGroup"}>
                 { filteredData.length > 0
                   ? filteredData.map(place => (
-                      <ListGroupItem className="searchResult" action href={"#/info/" + place} key={place}>
+                      <ListGroup.Item className="searchResult" action href={"#/location/" + place} key={place}>
                         <h5>{place}</h5>
                         <p>{place}</p>
-                      </ListGroupItem>
+                      </ListGroup.Item>
                     ))
-                  : <ListGroupItem><h5 id="noResultsFound">No results found.</h5></ListGroupItem>
+                  : <ListGroup.Item><h5 id="noLocationsFound">No locations found.</h5></ListGroup.Item>
                 }
               </ListGroup>
             </div>

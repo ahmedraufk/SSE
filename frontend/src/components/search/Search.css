@@ -22,7 +22,7 @@
     border-radius: 5px;
 }
 
-#searchResultsGroup {
+#searchLocationsGroup {
     max-height: 300px;
     overflow-y: auto;
 }
@@ -40,6 +40,6 @@
     margin: 0;
 }
 
-#noResultsFound {
+#noLocationsFound {
     margin: 0;
 }
