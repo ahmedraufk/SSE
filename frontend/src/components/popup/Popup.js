@@ -10,7 +10,7 @@ function Popup() {
 
     return (
         <div id="dontKnowPopup">
-            <Button id="dontKnowButton" variant="primary" onClick={handleShow}>
+            <Button id="dontKnowButton" variant="primary" onClick={handleShow} tabIndex="1000">
                 I don't know my polling place
             </Button>
             <Modal

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Location.css';
 import Menu from "../menu/Menu";
 
-function Location() {
+function Location(props) {
+
+  const [location] = useState(props.location)
 
   return (
     <div className="location">

@@ -6,7 +6,6 @@ import {Form, Container, ListGroup} from "react-bootstrap";
 
 function Search(props) {
     const [hidden,setHidden] = useState(true);
-    const [hasText, setHasText] = useState(false);
     const [data] = useState(props.places);
     const [filteredData,setFilteredData] = useState(data);
 
@@ -14,10 +13,8 @@ function Search(props) {
       let searchText = e.target.value.toLowerCase();
       if (searchText !== "") {
         setHidden(false);
-        setHasText(true);
       } else {
         setHidden(true);
-        setHasText(false);
       }
       var newData = data.filter(text => text.includes(searchText));
       setFilteredData(newData);
@@ -35,8 +32,8 @@ function Search(props) {
             <div id="dropdown">
               <ListGroup id={"searchLocationsGroup"}>
                 { filteredData.length > 0
-                  ? filteredData.map(place => (
-                      <ListGroup.Item className="searchResult" action href={"#/location/" + place} key={place}>
+                  ? filteredData.map((place, i) => (
+                      <ListGroup.Item className="searchResult" action href={"#/location/" + place} key={place} tabindex={i+1}>
                         <h5>{place}</h5>
                         <p>{place}</p>
                       </ListGroup.Item>
