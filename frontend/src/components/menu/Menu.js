@@ -1,12 +1,21 @@
 import React from 'react';
 import {Nav,Navbar,Form,FormControl,Button} from "react-bootstrap";
 import './Menu.css';
+import sociallyDistantVoters from '../../res/img/sociallyDistantVoters.svg';
 
 function Menu() {
 
     return (
         <Navbar id="menu" variant ="dark">
-            <Navbar.Brand href="/">SSE</Navbar.Brand>
+            <Navbar.Brand href="/">
+              <img
+                src={sociallyDistantVoters}
+                width="60"
+                height="30"
+                className="d-inline-block align-top"
+                alt="Graphic of voters socially distancing"
+              />
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
