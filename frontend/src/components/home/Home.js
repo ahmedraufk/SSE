@@ -1,5 +1,4 @@
 import React from 'react';
-import Menu from '../menu/Menu';
 import "./Home.css";
 import Popup from "../popup/Popup";
 import SearchDrop from "../searchdrop/Searchdrop";

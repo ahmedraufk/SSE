@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Modal,Button} from "react-bootstrap";
+import './Popup.css';
 
 function Popup() {
     const [show, setShow] = useState(false);
