@@ -1,11 +1,20 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import "./Home.css";
 import Popup from "../popup/Popup";
 import SearchDrop from "../searchdrop/Searchdrop";
 import {Container,Col, Row,Button} from "react-bootstrap";
 
-function Home() {
+function Home(props) {
 
+    const[data,setData] = useState(['a','b','c']);
+
+    useEffect(() => {
+        fetch('/api/polling/')
+            .then(response => response.json())
+            .then(data => {
+                setData(data[0]);
+            });
+    }, []);
     return (
         <div className="home">
             <Container id="header">
@@ -23,11 +32,11 @@ function Home() {
                 </Row>
 
                 <Row>
-                    <SearchDrop />
+                    <SearchDrop values = {data}/>
                 </Row>
                 <Row>
                    <Col>
-                       <Button variant="primary">Search</Button>{' '}
+
                    </Col>
                     <Col>
                         <Popup />
