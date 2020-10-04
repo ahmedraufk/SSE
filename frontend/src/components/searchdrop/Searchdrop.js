@@ -10,23 +10,30 @@ function SearchDrop(props) {
     const{register,getValues} = useForm();
     const [isHidden,setHide] = useState(false);
     const toggle = () => setHide(!isHidden);
+    const [data,setData] = useState(props.values)
+    const[filterData,setFilterData] = useState([])
+    function handleChange(e){
+        var newData = data.filter(word => e.target.value === word);
+        setFilterData(newData);
 
 
+    }
 
     return (
         <div className="searchdrop">
 
             <Form.Group>
-                <Form.Control size="lg" type="text" placeholder="Select a location" />
-                <div  >
+                <Form.Control size="lg" type="text" placeholder="Select a location" onChange={handleChange} />
 
+                <div  >
                     {
-                        props.values.map(place => (
+                        filterData.map(place => (
                             <p>
                                 {place}
                             </p>
                         ))
                     }
+
 
                 </div>
                 <br />
