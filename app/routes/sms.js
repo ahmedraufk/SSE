@@ -1,6 +1,6 @@
-// const db = require('../db');
+const db = require('../db');
 const express = require('express');
-const {map} = require('lodash');
+const {map, values} = require('lodash');
 const queries = require('../res/queries.json');
 const router = express.Router();
 const winston = require('../res/winston');
@@ -11,32 +11,31 @@ message = null;
 // SMS endpoint
 router.post('/sms', function(req, res) {
   const twiml = new MessagingResponse();
-  con.connect(function(err) {
     minutes = req.body.Body;
+    number = req.body.To;
     if (parseInt(minutes) !== parseInt(minutes) || parseInt(minutes) <= 0) {
       console.log("string")
-      twiml.message("Please write the number of minutes with digits rather than letters (for example, type 30 instead of thirty). Thank you for helping out!");
+      twiml.message("Thank you for sharing, sadly we couldn't understand what you sent. Please send your wait time in following format: \"15 min\"");
       res.writeHead(200, {'Content-Type': 'text/xml'});
       res.end(twiml.toString());
     }
     else {
-      console.log("number");
-      id = 1;
-      var today = new Date();
-      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      precinct = "Abbotts";
-      twiml.message("Thank you for your response!");
-      var insertQuery = "insert into waitTimes (time, idPrecinct, precinct, minutes) values ?";
-      var values = [[time, id, precinct, parseInt(minutes)]];
-      con.query(insertQuery, [values], function (err, result) {
-        if (err) throw err;
-        console.log("1 record inserted");
-      });
-      res.writeHead(200, {'Content-Type': 'text/xml'});
-      res.end(twiml.toString());
+      var timeStamp = new Date();
+      twiml.message("Thank you for sharing. This will help alert your neighbors and others to the wait time at this location. Please visit www.ourwebsite.com for more up to date information about wait times.");
+      i=0;
+      db.query(queries.polling_places + number)
+          .then(function(result) {
+              id = result[0].id;
+              var values = [timeStamp, parseInt(minutes), minutes, id, id];
+              db.query(queries.insert_query, values);
+              res.writeHead(200, {'Content-Type': 'text/xml'});
+              res.end(twiml.toString());
+          })
+          .catch(function(err) {
+            res.status(500).json([{"error": err}])
+            throw err
+          });
     }
   });
-
-});
 
 module.exports = router
