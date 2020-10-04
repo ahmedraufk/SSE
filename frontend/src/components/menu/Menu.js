@@ -12,8 +12,8 @@ function Menu() {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="/overview"></Nav.Link>
-                    <Nav.Link href="/faq">FAQ</Nav.Link>
+                    <Nav.Link href="#/wait_times">Wait Times</Nav.Link>
+                    <Nav.Link href="#/faq">FAQ</Nav.Link>
                 </Nav>
                 <Form inline>
                     <FormControl type="text" placeholder="Search" className="mr-sm-2" />

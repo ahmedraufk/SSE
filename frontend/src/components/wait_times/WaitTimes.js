@@ -5,7 +5,7 @@ function Info() {
 
   return (
     <div className="wait_times">
-      <h1>Overview</h1>
+      <h1>Wait Times</h1>
     </div>
   );
 }
