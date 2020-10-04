@@ -8,7 +8,7 @@ function Search(props) {
     const [hidden,setHidden] = useState(true);
     const [hasText, setHasText] = useState(false);
     const [data] = useState(props.places);
-    const [filteredData,setFilteredData] = useState([]);
+    const [filteredData,setFilteredData] = useState(data);
 
     function handleSearch(e){
       let searchText = e.target.value.toLowerCase();
@@ -28,10 +28,10 @@ function Search(props) {
           <h2 id={"searchTitle"}>Search for your polling place</h2>
           <div className="searchdrop">
               <Form>
-                  <Form.Control id="searchBar" size="lg" type="search" placeholder="Select a location" onChange={handleSearch} />
+                  <Form.Control id="searchBar" size="lg" type="search" placeholder="Select a location" onChange={handleSearch} onClick={() => setHidden(!hidden)}/>
               </Form>
           </div>
-          { hasText &&
+          { !hidden &&
             <div id="dropdown">
               <ListGroup id={"searchResultsGroup"}>
                 { filteredData.length > 0
@@ -41,7 +41,7 @@ function Search(props) {
                         <p>{place}</p>
                       </ListGroupItem>
                     ))
-                  : <ListGroupItem>No results found.</ListGroupItem>
+                  : <ListGroupItem><h5 id="noResultsFound">No results found.</h5></ListGroupItem>
                 }
               </ListGroup>
             </div>

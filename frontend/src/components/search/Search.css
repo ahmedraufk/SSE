@@ -39,3 +39,7 @@
 .searchResult p {
     margin: 0;
 }
+
+#noResultsFound {
+    margin: 0;
+}
