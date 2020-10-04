@@ -1,0 +1,41 @@
+
+#search {
+    padding-top: 3em;
+    text-align: center;
+    width: 85%;
+    max-width: 600px;
+}
+
+#searchTitle {
+    padding-bottom: 0.5em;
+}
+
+#searchBar {
+    margin: 0 auto;
+}
+
+#dropdown {
+    max-height: 300px;
+    background-color: white;
+    margin-top: 0.5em;
+    margin-bottom: 0.25em;
+    border-radius: 5px;
+}
+
+#searchResultsGroup {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.searchResult {
+    margin: 0;
+    text-align: left !important;
+}
+
+.searchResult h5 {
+    margin: 0;
+}
+
+.searchResult p {
+    margin: 0;
+}

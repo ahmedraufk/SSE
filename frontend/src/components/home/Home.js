@@ -1,50 +1,36 @@
 import React, {useEffect, useState} from 'react';
 import "./Home.css";
-import Popup from "../popup/Popup";
-import SearchDrop from "../searchdrop/Searchdrop";
-import {Container,Col, Row,Button} from "react-bootstrap";
+import Search from "../search/Search";
+import {Container, Col, Row} from "react-bootstrap";
+import headerImage from '../../res/img/sociallyDistantVoters.svg'
 
 function Home(props) {
 
-    const[data,setData] = useState(['a','b','c']);
+    const[data,setData] = useState(['adam','grace','ellen', 'michael', 'michaela', 'bea', 'mike']);
 
     useEffect(() => {
-        fetch('/api/polling/')
+        fetch('/api/polling')
             .then(response => response.json())
             .then(data => {
-                setData(data[0]);
+                setData(data);
             });
     }, []);
+
     return (
         <div className="home">
-            <Container id="header">
-                <Row>
-                    <Col md={{ span: 5, offset: 5}}>
-                        <h1 id="headtext">Welcome to the Fulton County voter wait time portal!</h1>
-                    </Col>
+            <div id={"header"}>
+              <Container>
+                <Row className="d-flex align-items-center">
+                  <Col md={6}>
+                    <img className={"img-fluid"} src={headerImage} alt={'Graphic showing socially distant voters'}/>
+                  </Col>
+                  <Col id="headerTextColumn" md={6}>
+                    <h1>Welcome to the Fulton County voter wait time portal!</h1>
+                  </Col>
                 </Row>
-            </Container>
-            <Container id="searchtitle">
-                <Row id="h2text">
-                    <h2>
-                        Search for your polling place
-                    </h2>
-                </Row>
-
-                <Row>
-                    <SearchDrop values = {data}/>
-                </Row>
-                <Row>
-                   <Col>
-
-                   </Col>
-                    <Col>
-                        <Popup />
-                    </Col>
-                </Row>
-
-            </Container>
-
+              </Container>
+            </div>
+            <Search places={data}/>
         </div>
     );
 }

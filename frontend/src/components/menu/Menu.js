@@ -1,12 +1,11 @@
 import React from 'react';
-
 import {Nav,Navbar,Form,FormControl,Button} from "react-bootstrap";
 import './Menu.css';
 
 function Menu() {
 
     return (
-        <Navbar bg="primary" variant ="dark">
+        <Navbar id="menu" variant ="dark">
             <Navbar.Brand href="/">SSE</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">

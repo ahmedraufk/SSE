@@ -9,11 +9,10 @@ function Popup() {
     const handleShow = () => setShow(true);
 
     return (
-        <>
-            <Button variant="primary" onClick={handleShow}>
+        <div id="dontKnowPopup">
+            <Button id="dontKnowButton" variant="primary" onClick={handleShow}>
                 I don't know my polling place
             </Button>
-
             <Modal
                 show={show}
                 onHide={handleClose}
@@ -21,19 +20,17 @@ function Popup() {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Info</Modal.Title>
+                    <Modal.Title>I don't know my polling place.</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     This link is taking you to https://www.mvp.sos.ga.gov, Georgia's polling place locator.
+                    Enter your details on this page to find your polling place, then come back with the address or name.
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary">Ok</Button>
+                    <Button variant="primary" href="https://www.mvp.sos.ga.gov" target="_blank">Go</Button>
                 </Modal.Footer>
             </Modal>
-        </>
+        </div>
     );
 }
 
