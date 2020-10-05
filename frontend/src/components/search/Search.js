@@ -21,8 +21,19 @@ function Search(props) {
       } else {
         setHidden(true);
       }
-      var newData = data.filter(location => location.name.includes(searchText));
+      var newData = data.filter(location => match(searchText, location.name, location.address));
+      console.log(newData)
       setFilteredData(newData);
+    }
+
+    function match(filter, name, address) {
+      let nameMatch = name.toLowerCase().indexOf(filter.toLowerCase()) > -1;
+      let addressMatch = address.toLowerCase().indexOf(filter.toLowerCase()) > -1;
+      if (nameMatch || addressMatch) {
+        return true;
+      } else {
+        return false;
+      }
     }
 
     return (
