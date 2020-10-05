@@ -21,7 +21,7 @@ function Menu() {
                 <Nav className="mr-auto">
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="#/countyWide">County Wide</Nav.Link>
-                    <Nav.Link href="#/faq">FAQ</Nav.Link>
+                    <Nav.Link href="#/faq">FAQs</Nav.Link>
                 </Nav>
                 <Form inline>
                     <FormControl type="text" placeholder="Search" className="mr-md-2" />

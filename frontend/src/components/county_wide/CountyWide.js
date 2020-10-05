@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './CountyWide.css';
 import Menu from "../menu/Menu";
-import {Dropdown, Container, Row, Col, Card, CardColumns, Button} from "react-bootstrap";
+import {Dropdown, Container, Row, Col, Card, CardGroup, Button} from "react-bootstrap";
 
 function CountyWide() {
 
@@ -37,9 +37,9 @@ function CountyWide() {
             </Dropdown>
           </Col>
         </Row>
-        <CardColumns id="cardsContainer">
+        <Row id="cardsContainer">
           {locations.map(location => (
-            <Card className="text-center">
+            <Card className="countyWideCard text-center">
               <Card.Header>Polling Place Name</Card.Header>
               <Card.Body>
                 <Card.Title><h1>{location}</h1></Card.Title>
@@ -49,7 +49,7 @@ function CountyWide() {
               </Card.Body>
             </Card>
           ))}
-        </CardColumns>
+        </Row>
         <Button variant="primary">Load More</Button>
       </Container>
     </div>
