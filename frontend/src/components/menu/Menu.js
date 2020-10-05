@@ -6,7 +6,7 @@ import sociallyDistantVoters from '../../res/img/sociallyDistantVoters.svg';
 function Menu() {
 
     return (
-        <Navbar collapseOnSelect expand="lg" id="menu" variant ="dark">
+        <Navbar collapseOnSelect expand="sm" id="menu" variant ="dark">
             <Navbar.Brand href="/">
               <img
                 src={sociallyDistantVoters}

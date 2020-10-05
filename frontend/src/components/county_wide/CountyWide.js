@@ -5,11 +5,11 @@ import {Dropdown, Container, Row, Col, Card, CardGroup, Button} from "react-boot
 
 function CountyWide() {
 
-  const [locations, setLocations] = useState([24, 3, 25, 92, 0, 23, 85, 39, 29]);
+  const [locations, setLocations] = useState([]);
   const [sortBy, setSortBy] = useState("Alphabetical");
 
   useEffect(() => {
-    fetch('/api/polling')
+    fetch('/api/locations')
       .then(response => response.json())
       .then(data => {
         setLocations(data);
@@ -40,13 +40,15 @@ function CountyWide() {
         <Row id="cardsContainer">
           {locations.map(location => (
             <Card className="countyWideCard text-center">
-              <Card.Header>Polling Place Name</Card.Header>
-              <Card.Body>
-                <Card.Title><h1>{location}</h1></Card.Title>
-                <Card.Text>
-                  minutes
-                </Card.Text>
-              </Card.Body>
+              <a href={"#/location/" + location.id}>
+                <Card.Header>{location.name}</Card.Header>
+                <Card.Body>
+                  <Card.Title><h1>24</h1></Card.Title>
+                  <Card.Text>
+                    minutes
+                  </Card.Text>
+                </Card.Body>
+              </a>
             </Card>
           ))}
         </Row>
