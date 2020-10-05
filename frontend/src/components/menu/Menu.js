@@ -6,7 +6,7 @@ import sociallyDistantVoters from '../../res/img/sociallyDistantVoters.svg';
 function Menu() {
 
     return (
-        <Navbar id="menu" variant ="dark">
+        <Navbar collapseOnSelect expand="lg" id="menu" variant ="dark">
             <Navbar.Brand href="/">
               <img
                 src={sociallyDistantVoters}
@@ -16,16 +16,15 @@ function Menu() {
                 alt="Graphic of voters socially distancing"
               />
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="#/countyWide">County Wide</Nav.Link>
                     <Nav.Link href="#/faq">FAQ</Nav.Link>
                 </Nav>
                 <Form inline>
-                    <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                    <Button variant="outline-success">Search</Button>
+                    <FormControl type="text" placeholder="Search" className="mr-md-2" />
                 </Form>
             </Navbar.Collapse>
         </Navbar>
