@@ -1,4 +1,6 @@
 {
+  "select_locations": "select * from polling_places",
+  "select_location": "select * from polling_places where polling_places.id = ",
   "insert_query" : "insert into wait_times (timestamp, original_time, parsed_time, pollingplace_id, phone_id) values (?, ?, ?, ?, ?)",
   "polling_places" : "select * from polling_places where polling_places.phone = "
 }

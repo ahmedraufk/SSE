@@ -15,7 +15,7 @@ function App() {
         <Route exact path='/' component={Home}/>
         <Route exact path='/countyWide' component={CountyWide}/>
         <Route exact path='/faq' component={Faq}/>
-        <Route exact path='/location/:id' component={Location}/>
+        <Route exact path='/location/:location_id' component={Location}/>
       </Switch>
       <Footer></Footer>
     </div>

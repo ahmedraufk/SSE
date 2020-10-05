@@ -7,6 +7,7 @@ import mapboxgl from 'mapbox-gl';
 mapboxgl.accessToken = "pk.eyJ1IjoibWljaGFlbC1rMTAxIiwiYSI6ImNqajBkMXNmbDBnbzAza2x6Mnp1Mjl5YWIifQ.K5e1fvORu0_ZfSPH4cGlNA"
 
 function Location(props) {
+  const [location, setLocation] = useState({});
   const mapboxElRef = useRef(null); // DOM element to render map
   useEffect(() => {
     // You can store the map instance with useRef too
@@ -26,9 +27,15 @@ function Location(props) {
   //     }),
   //     'top-left'
   //   );
-  }, []);
 
-  const [location] = useState(props.location)
+    fetch('/api/locations/' + props.match.params.location_id)
+      .then(response => response.json())
+      .then(data => {
+        setLocation(data[0]);
+        console.log(props.match.params.id)
+        console.log(data);
+      });
+  }, []);
 
   return (
     <div className="location">
@@ -36,8 +43,8 @@ function Location(props) {
       <Container id="locationContainer">
         <Row>
           <Col lg={4}>
-            <h2 id="locationName">Name</h2>
-            <h6 id="locationAddress">Address</h6>
+            <h2 id="locationName">{location.name}</h2>
+            <h6 id="locationAddress">{location.address}</h6>
             <div id="map" ref={mapboxElRef}></div>
           </Col>
           <Col lg={4}>

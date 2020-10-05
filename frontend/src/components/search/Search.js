@@ -1,13 +1,18 @@
 import './Search.css';
 import Popup from "../popup/Popup";
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Form, Container, ListGroup} from "react-bootstrap";
 
 
 function Search(props) {
     const [hidden,setHidden] = useState(true);
-    const [data] = useState(props.places);
-    const [filteredData,setFilteredData] = useState(data);
+    const [data, setData] = useState(null);
+    const [filteredData,setFilteredData] = useState(null);
+
+    useEffect(() => {
+      setData(props.locations);
+      setFilteredData(props.locations)
+    }, [props.locations]);
 
     function handleSearch(e){
       let searchText = e.target.value.toLowerCase();
@@ -16,7 +21,7 @@ function Search(props) {
       } else {
         setHidden(true);
       }
-      var newData = data.filter(text => text.includes(searchText));
+      var newData = data.filter(location => location.name.includes(searchText));
       setFilteredData(newData);
     }
 
@@ -32,10 +37,10 @@ function Search(props) {
             <div id="dropdown">
               <ListGroup id={"searchLocationsGroup"}>
                 { filteredData.length > 0
-                  ? filteredData.map((place, i) => (
-                      <ListGroup.Item className="searchResult" action href={"#/location/" + place} key={place} tabindex={i+1}>
-                        <h5>{place}</h5>
-                        <p>{place}</p>
+                  ? filteredData.map((location, i) => (
+                      <ListGroup.Item className="searchResult" action href={"#/location/" + location.id} key={location.name} tabindex={i+1}>
+                        <h5>{location.name}</h5>
+                        <p>{location.address}</p>
                       </ListGroup.Item>
                     ))
                   : <ListGroup.Item><h5 id="noLocationsFound">No locations found.</h5></ListGroup.Item>

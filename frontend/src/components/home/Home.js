@@ -6,10 +6,10 @@ import headerImage from '../../res/img/sociallyDistantVoters.svg'
 
 function Home(props) {
 
-    const[data,setData] = useState(['adam','grace','ellen', 'michael', 'michaela', 'bea', 'mike']);
+    const[data,setData] = useState([]);
 
     useEffect(() => {
-        fetch('/api/polling')
+        fetch('/api/locations')
             .then(response => response.json())
             .then(data => {
                 setData(data);
@@ -30,7 +30,7 @@ function Home(props) {
                 </Row>
               </Container>
             </div>
-            <Search places={data}/>
+            <Search locations={data}/>
         </div>
     );
 }
