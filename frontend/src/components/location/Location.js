@@ -32,8 +32,6 @@ function Location(props) {
       .then(response => response.json())
       .then(data => {
         setLocation(data[0]);
-        console.log(props.match.params.id)
-        console.log(data);
       });
   }, []);
 
@@ -72,7 +70,7 @@ function Location(props) {
           </Col>
           <Col lg={4}>
             <h5>Predicted Times</h5>
-            <Table bordered hover id="predictedTimes">
+            <Table bordered id="predictedTimes">
               <tbody>
                 <tr>
                   <td>8AM - 9AM</td>

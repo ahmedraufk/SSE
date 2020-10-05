@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './CountyWide.css';
 import Menu from "../menu/Menu";
-import {Dropdown, Container, Row, Col, Card, CardGroup, Button} from "react-bootstrap";
+import {Dropdown, Container, Row, Col, Card, Button} from "react-bootstrap";
 
 function CountyWide() {
 
   const [locations, setLocations] = useState([]);
   const [sortBy, setSortBy] = useState("Alphabetical");
+  const countyWideRef = useRef(null); // DOM element to render map
 
   useEffect(() => {
     fetch('/api/locations')
@@ -14,10 +15,11 @@ function CountyWide() {
       .then(data => {
         setLocations(data);
       });
+    countyWideRef.current.scrollTo(0,0);
   }, []);
 
   return (
-    <div className="countyWide">
+    <div className="countyWide" ref={countyWideRef}>
       <Menu/>
       <Container id="countyWideContainer">
         <Row className="d-flex align-items-center">
@@ -52,7 +54,6 @@ function CountyWide() {
             </Card>
           ))}
         </Row>
-        <Button variant="primary">Load More</Button>
       </Container>
     </div>
   );

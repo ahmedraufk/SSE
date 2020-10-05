@@ -1,6 +1,5 @@
 import React from 'react';
 import './Footer.css';
-import {Col, Container, Row} from "react-bootstrap";
 
 function Info() {
 
