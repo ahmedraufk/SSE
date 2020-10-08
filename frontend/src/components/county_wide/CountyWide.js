@@ -52,12 +52,6 @@ function CountyWide() {
     if(sort === "Alphabetical"){
       filteredData.sort((a, b) => (a.name > b.name) ? 1 : -1);
       setSortBy("Alphabetical");
-    } else if(sort === "Reverse Alphabetical") {
-      filteredData.sort((a, b) => (a.name < b.name) ? 1 : -1);
-      setSortBy("Reverse Alphabetical");
-    } else {
-      filteredData.sort((a, b) => (a.name > b.name) ? 1 : -1);
-      setSortBy("Alphabetical");
     }
   }
 
@@ -79,7 +73,7 @@ function CountyWide() {
               <Dropdown.Menu>
                 {/*//write custom function - sortCards*/}
                 <Dropdown.Item onClick={() => sortCards("Alphabetical")}>Alphabetical</Dropdown.Item>
-                <Dropdown.Item onClick={() => sortCards("Reverse Alphabetical")}>Reverse Alphabetical</Dropdown.Item>
+
                 <Dropdown.Item onClick={() => sortCards("Highest wait time")}>Highest wait time</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
