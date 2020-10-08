@@ -41,7 +41,7 @@ function Search(props) {
           <h2 id={"searchTitle"}>Search for your polling place</h2>
           <div className="searchdrop">
               <Form>
-                  <Form.Control id="searchBar" size="lg" type="search" placeholder="Select a location" title="Search box" onChange={handleSearch} onClick={() => setHidden(!hidden)}/>
+                  <Form.Control id="searchBar" size="lg" type="search" placeholder="Select a location" label="Search box" onChange={handleSearch} onClick={() => setHidden(!hidden)}/>
               </Form>
           </div>
           { !hidden &&
