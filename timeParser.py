@@ -29,33 +29,57 @@ def timeParser(input):
 
 
   if (d.match(input) is not None):
-    res = d.match(input).group()
-    result = int(res)
+    try:
+      res = d.match(input).group()
+      result = int(res)
+    except ValueError:
+      return False
   elif (e.match(input)is not None):
-    res = e.match(input).group(1)
-    result = int(res)
+    try:
+      res = e.match(input).group(1)
+      result = int(res)
+    except ValueError:
+      return False
   elif (h.match(input) is not None):
-    res = h.match(input).group(1)
-    result = int(float(res) * 60)
+    try:
+      res = h.match(input).group(1)
+      result = int(float(res) * 60)
+    except ValueError:
+      return False
   elif (f.match(input) is not None):
-    res = f.match(input).group()
-    result = int(float(res) * 60)
+    try:
+      res = f.match(input).group()
+      result = int(float(res) * 60)
+    except ValueError:
+      return False
   elif (s.match(input) is not None):
-    res1 = s.match(input).group(1)
-    res2 = s.match(input).group(2)
-    result = int(res1)*60+int(res2)
+    try:
+      res1 = s.match(input).group(1)
+      res2 = s.match(input).group(2)
+      result = int(res1)*60+int(res2)
+    except ValueError:
+      return False
   elif (t.match(input) is not None):
-    res1 = t.match(input).group(1)
-    res2 = t.match(input).group(2)
-    result = int(res1)*60+int(res2)
+    try:
+      res1 = t.match(input).group(1)
+      res2 = t.match(input).group(2)
+      result = int(res1)*60+int(res2)
+    except ValueError:
+      return False
   elif (u.match(input) is not None):
-    res1 = u.match(input).group(2)
-    res2 = u.match(input).group(6)
-    result = int(res1)*60+int(res2)
+    try:
+      res1 = u.match(input).group(2)
+      res2 = u.match(input).group(6)
+      result = int(res1)*60+int(res2)
+    except ValueError:
+      return False
   elif (v.match(input) is not None):
-    res1 = v.match(input).group(2)
-    res2 = v.match(input).group(6)
-    result = int(res1)*60+int(res2)
+    try:
+      res1 = v.match(input).group(2)
+      res2 = v.match(input).group(6)
+      result = int(res1)*60+int(res2)
+    except ValueError:
+      return False
   #If none of the pattern matches then return false
   else:
     return False
