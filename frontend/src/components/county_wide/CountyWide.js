@@ -37,6 +37,7 @@ function CountyWide() {
     setFilteredData(newData);
 
   }
+
   function match(filter, name, address) {
     let nameMatch = name.toLowerCase().indexOf(filter.toLowerCase()) > -1;
     let addressMatch = address.toLowerCase().indexOf(filter.toLowerCase()) > -1;
@@ -46,6 +47,21 @@ function CountyWide() {
       return false;
     }
   }
+
+  function sortCards(sort){
+    if(sort === "Alphabetical"){
+      filteredData.sort((a, b) => (a.name > b.name) ? 1 : -1);
+      setSortBy("Alphabetical");
+    } else if(sort === "Reverse Alphabetical") {
+      filteredData.sort((a, b) => (a.name < b.name) ? 1 : -1);
+      setSortBy("Reverse Alphabetical");
+    } else {
+      filteredData.sort((a, b) => (a.name > b.name) ? 1 : -1);
+      setSortBy("Alphabetical");
+    }
+  }
+
+
 
   return (
     <div className="countyWide" ref={countyWideRef}>
@@ -62,8 +78,9 @@ function CountyWide() {
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 {/*//write custom function - sortCards*/}
-                <Dropdown.Item onClick={() => setSortBy("Alphabetical")}>Alphabetical</Dropdown.Item>
-                <Dropdown.Item onClick={() => setSortBy("Highest wait time")}>Highest wait time</Dropdown.Item>
+                <Dropdown.Item onClick={() => sortCards("Alphabetical")}>Alphabetical</Dropdown.Item>
+                <Dropdown.Item onClick={() => sortCards("Reverse Alphabetical")}>Reverse Alphabetical</Dropdown.Item>
+                <Dropdown.Item onClick={() => sortCards("Highest wait time")}>Highest wait time</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Col>
