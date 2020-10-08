@@ -4,6 +4,7 @@ import CountyWide from "../county_wide/CountyWide";
 import Location from "../location/Location";
 import Faq from "../faq/Faq";
 import Footer from "../footer/Footer";
+import Error from "../error/Error";
 import {Switch, Route} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -15,7 +16,8 @@ function App() {
         <Route exact path='/' component={Home}/>
         <Route exact path='/countyWide' component={CountyWide}/>
         <Route exact path='/faq' component={Faq}/>
-        <Route exact path='/location/:location_id' component={Location}/>
+        <Route exact path='/location' component={Location}/>
+        <Route exact path='/error' component={Error}/>
       </Switch>
       <Footer></Footer>
     </div>

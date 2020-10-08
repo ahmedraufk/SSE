@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './CountyWide.css';
 import Menu from "../menu/Menu";
-import {Dropdown, Container, Row, Col, Card, Button} from "react-bootstrap";
+import {Dropdown, Container, Row, Col, Card } from "react-bootstrap";
 
 function CountyWide() {
 
