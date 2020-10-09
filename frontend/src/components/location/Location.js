@@ -49,7 +49,7 @@ function Location(props) {
             <h2 id="locationName">{location.name}</h2>
             <h6 id="locationAddress">{location.address}</h6>
             <div id="map" ref={mapboxElRef}></div>
-            <Button variant="secondary" href={"https://www.google.com/maps/dir/?api=1&destination="+lat+","+long} target="_blank">Directions</Button>{' '}
+            <Button variant="secondary" href={"https://www.google.com/maps/dir/?api=1&destination="+lat+","+long} target="_blank" size = "lg" block>Directions</Button>{' '}
           </Col>
           <Col lg={4}>
             <h5>Current Times</h5>
