@@ -8,7 +8,7 @@ function CountyWide() {
 
   const [locations, setLocations] = useState([]);
   const [sortBy, setSortBy] = useState("Alphabetical");
-  const countyWideRef = useRef(null); // DOM element to render map
+  const countyWideRef = useRef(null); // DOM element to render gmap
 
 
   const [data, setData] = useState(null);
