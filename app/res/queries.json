@@ -1,6 +1,9 @@
 {
   "select_locations": "select * from polling_places",
-  "select_location": "select * from polling_places where polling_places.id = ",
-  "insert_query" : "insert into wait_times (timestamp, original_time, parsed_time, pollingplace_id, phone_id) values (?, ?, ?, ?, ?)",
-  "polling_places" : "select * from polling_places where polling_places.phone = "
+  "select_location": "select * from polling_places where id = ",
+  "insert_reject" : "insert into wait_times (timestamp, original_time, pollingplace_id, phone_id) values (?, ?, ?, ?)",
+  "insert_accept" : "insert into wait_times (timestamp, original_time, parsed_time, pollingplace_id, phone_id) values (?, ?, ?, ?, ?)",
+  "select_location_id" : "select id from polling_places where phone = ",
+  "select_phone_id" : "select id from hash_numbers where number = ",
+  "insert_phone" : "insert into hash_numbers (number) values (?)"
 }
