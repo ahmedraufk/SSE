@@ -1,16 +1,15 @@
 import React, {useState, useRef, useEffect} from 'react';
-import { Redirect } from 'react-router-dom';
-import './Location.css';
-import Menu from "../menu/Menu";
-import {Badge, Col, Container, Row, Table, Alert,Button} from "react-bootstrap";
+import {Alert, Badge, Button, Col, Container, Row, Table} from "react-bootstrap";
 import mapboxgl from 'mapbox-gl';
+import Menu from "../menu/Menu";
+import gmapsLogo from '../../res/img/googleMaps.png';
+import './Location.css';
 
 mapboxgl.accessToken = "pk.eyJ1IjoibWljaGFlbC1rMTAxIiwiYSI6ImNqajBkMXNmbDBnbzAza2x6Mnp1Mjl5YWIifQ.K5e1fvORu0_ZfSPH4cGlNA"
 
 function Location(props) {
-  console.log(localStorage.getItem("location_id"));
   const [location, setLocation] = useState({});
-  const mapboxElRef = useRef(null); // DOM element to render map
+  const mapboxElRef = useRef(null);
 
   useEffect(() => {
     let locationId = localStorage.getItem("location_id");
@@ -31,7 +30,7 @@ function Location(props) {
         });
         map.addControl(new mapboxgl.NavigationControl());
         map.addControl(new mapboxgl.ScaleControl());
-        var marker = new mapboxgl.Marker()
+        const marker = new mapboxgl.Marker()
           .setLngLat([data[0].lon,data[0].lat])
           .addTo(map);
       });
@@ -45,8 +44,15 @@ function Location(props) {
           <Col lg={4}>
             <h2 id="locationName">{location.name}</h2>
             <h6 id="locationAddress">{location.address}</h6>
-            <div id="map" ref={mapboxElRef}></div>
-            <Button variant="secondary" href={"https://www.google.com/maps/dir/?api=1&destination="+location.lat+","+location.lon} target="_blank" size = "lg" block>Directions</Button>{' '}
+            <div id="map" ref={mapboxElRef}/>
+            <Button size="lg"
+                    id="directionsButton"
+                    variant="light"
+                    href={"https://www.google.com/maps/dir/?api=1&destination="+location.lat+","+location.lon}
+                    target="_blank">
+              <img class="img-fluid" id="gmapsLogo" src={gmapsLogo}/>
+              Get Directions
+            </Button>
           </Col>
           <Col lg={4}>
             <h5>Current Times</h5>

@@ -9,6 +9,22 @@
     margin-top: 2em;
 }
 
+#directionsButton {
+    margin-top: 1em;
+    padding-left: 0.75em;
+    font-weight: 600;
+}
+
+#gmapsLogo {
+    max-width: 35px;
+    margin-right: 0.25em;
+    margin-left: 0;
+}
+
+#getDirectionsText {
+    padding-top: 2em;
+}
+
 .waitTimesCard {
     border: 1px solid #e5e5ea;
     padding: 2em;
