@@ -2,7 +2,7 @@ import React, {useState, useRef, useEffect} from 'react';
 import { Redirect } from 'react-router-dom';
 import './Location.css';
 import Menu from "../menu/Menu";
-import {Badge, Col, Container, Row, Table, Alert} from "react-bootstrap";
+import {Badge, Col, Container, Row, Table, Alert,Button} from "react-bootstrap";
 import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken = "pk.eyJ1IjoibWljaGFlbC1rMTAxIiwiYSI6ImNqajBkMXNmbDBnbzAza2x6Mnp1Mjl5YWIifQ.K5e1fvORu0_ZfSPH4cGlNA"
@@ -29,6 +29,15 @@ function Location(props) {
     // Add navigation controls to the top right of the canvas
     map.addControl(new mapboxgl.NavigationControl());
     map.addControl(new mapboxgl.ScaleControl());
+  //   gmap.addControl(
+  //     new MapboxDirections({
+  //       accessToken: mapboxgl.accessToken
+  //     }),
+  //     'top-left'
+  //   );
+    var marker = new mapboxgl.Marker()
+        .setLngLat([-84.3803,33.7552])
+        .addTo(map);
 
     fetch('/api/locations/' + locationId)
       .then(response => response.json())
@@ -45,7 +54,8 @@ function Location(props) {
           <Col lg={4}>
             <h2 id="locationName">{location.name}</h2>
             <h6 id="locationAddress">{location.address}</h6>
-            <div id="map" ref={mapboxElRef}/>
+            <div id="map" ref={mapboxElRef}></div>
+            <Button variant="secondary" href={"https://www.google.com/maps/dir/?api=1&destination="+lat+","+long} target="_blank" size = "lg" block>Directions</Button>{' '}
           </Col>
           <Col lg={4}>
             <h5>Current Times</h5>
@@ -130,6 +140,7 @@ function Location(props) {
             </Alert>
           </Col>
         </Row>
+
       </Container>
     </div>
   );

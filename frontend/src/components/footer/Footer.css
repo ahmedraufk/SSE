@@ -8,3 +8,7 @@ footer {
     width: 100%;
     background-color: #f5f5f5;
 }
+
+#footerText {
+    color: #383838;
+}

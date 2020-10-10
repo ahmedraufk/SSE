@@ -5,7 +5,7 @@ function Info() {
 
   return (
     <footer className="footer text-muted">
-        <p>Copyright &copy; 2020 Georgia Institute of Technology</p>
+        <p id="footerText">Copyright &copy; 2020 Georgia Institute of Technology</p>
     </footer>
   );
 }
