@@ -19,30 +19,21 @@ function Location(props) {
       locationId = localStorage.getItem("location_id");
     }
 
-    const map = new mapboxgl.Map({
-      container: mapboxElRef.current,
-      style: "mapbox://styles/mapbox/streets-v11",
-      center: [-84.3803, 33.7552],
-      zoom: 10
-    });
-
-    // Add navigation controls to the top right of the canvas
-    map.addControl(new mapboxgl.NavigationControl());
-    map.addControl(new mapboxgl.ScaleControl());
-  //   gmap.addControl(
-  //     new MapboxDirections({
-  //       accessToken: mapboxgl.accessToken
-  //     }),
-  //     'top-left'
-  //   );
-    var marker = new mapboxgl.Marker()
-        .setLngLat([-84.3803,33.7552])
-        .addTo(map);
-
     fetch('/api/locations/' + locationId)
       .then(response => response.json())
       .then(data => {
         setLocation(data[0]);
+        const map = new mapboxgl.Map({
+          container: mapboxElRef.current,
+          style: "mapbox://styles/mapbox/streets-v11",
+          center: [data[0].lon, data[0].lat],
+          zoom: 11
+        });
+        map.addControl(new mapboxgl.NavigationControl());
+        map.addControl(new mapboxgl.ScaleControl());
+        var marker = new mapboxgl.Marker()
+          .setLngLat([data[0].lon,data[0].lat])
+          .addTo(map);
       });
   }, []);
 
@@ -55,7 +46,7 @@ function Location(props) {
             <h2 id="locationName">{location.name}</h2>
             <h6 id="locationAddress">{location.address}</h6>
             <div id="map" ref={mapboxElRef}></div>
-            <Button variant="secondary" href={"https://www.google.com/maps/dir/?api=1&destination="+lat+","+long} target="_blank" size = "lg" block>Directions</Button>{' '}
+            <Button variant="secondary" href={"https://www.google.com/maps/dir/?api=1&destination="+location.lat+","+location.lon} target="_blank" size = "lg" block>Directions</Button>{' '}
           </Col>
           <Col lg={4}>
             <h5>Current Times</h5>
