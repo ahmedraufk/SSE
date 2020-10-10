@@ -65,14 +65,14 @@ function Location(props) {
             <div className="waitTimesCard">
               <h4><Badge variant="success">Lowest Today</Badge></h4>
               <div>
-                <h3>30-45 minutes</h3>
+                <h3>30 minutes</h3>
                 <p>at 9:30 AM</p>
               </div>
             </div>
             <div className="waitTimesCard">
               <h4><Badge variant="danger">Highest Today</Badge></h4>
               <div>
-                <h3>15-30 minutes</h3>
+                <h3>45 minutes</h3>
                 <p>at 8:15 AM</p>
               </div>
             </div>
