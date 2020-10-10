@@ -8,7 +8,7 @@ function Faq() {
 
   return (
     <div className="faq">
-      <Menu/>
+      <Menu pageLocation="faq"/>
       <Container className="faqContainer">
         <h1>FAQs</h1>
         <Accordion id="faqAccordion" efaultActiveKey="0">

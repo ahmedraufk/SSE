@@ -15,3 +15,40 @@
     margin-left: 0.5em;
     margin-right: 0.25em;
 }
+
+.dropdown-menu {
+    right: 0;
+    left: auto !important;
+    margin-top: 0.5em !important;
+    max-height: 300px;
+    overflow-y: scroll;
+    width: 400px;
+}
+
+#dropdownMenuFilter {
+    width: 90%;
+    margin: 1em;
+}
+
+.dropdownName {
+    margin-top: 0.25em;
+    margin-bottom: 0;
+}
+
+.dropdownAddress {
+    margin-bottom: 0.25em;
+    font-size: 12px;
+    color: #636366;
+}
+
+#menuNoLocationsFound {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+
+@media only screen and (max-width: 768px) {
+    .dropdown-menu {
+        left: 0 !important;
+        right: auto;
+    }
+}

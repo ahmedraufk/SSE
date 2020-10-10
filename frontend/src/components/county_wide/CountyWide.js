@@ -48,7 +48,7 @@ function CountyWide() {
 
   return (
     <div className="countyWide">
-      <Menu/>
+      <Menu pageLocation="countyWide"/>
       <Container id="countyWideContainer">
         <Row className="d-flex align-items-center">
           <Col>

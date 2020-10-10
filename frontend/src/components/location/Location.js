@@ -38,7 +38,7 @@ function Location(props) {
 
   return (
     <div className="location">
-      <Menu/>
+      <Menu pageLocation="location"/>
       <Container id="locationContainer">
         <Row>
           <Col lg={4}>
