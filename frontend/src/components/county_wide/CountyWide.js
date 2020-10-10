@@ -3,7 +3,6 @@ import './CountyWide.css';
 import Menu from "../menu/Menu";
 import {Dropdown, Container, Row, Col, Card, Button, Form, ListGroup} from "react-bootstrap";
 
-
 function CountyWide() {
 
   const [locations, setLocations] = useState([]);

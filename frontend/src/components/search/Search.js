@@ -1,7 +1,8 @@
 import './Search.css';
 import Popup from "../popup/Popup";
-import React, {useState, useEffect} from 'react';
-import {Form, Container, ListGroup} from "react-bootstrap";
+import React, { useState, useEffect } from 'react';
+import { Form, Container, ListGroup } from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 
 function Search(props) {
@@ -14,7 +15,7 @@ function Search(props) {
       setFilteredData(props.locations)
     }, [props.locations]);
 
-    function handleSearch(e){
+    function handleSearch(e) {
       let searchText = e.target.value.toLowerCase();
       if (searchText !== "") {
         setHidden(false);
@@ -22,13 +23,12 @@ function Search(props) {
         setHidden(true);
       }
       var newData = data.filter(location => match(searchText, location.name, location.address));
-      console.log(newData)
       setFilteredData(newData);
     }
 
-    function match(filter, name, address) {
-      let nameMatch = name.toLowerCase().indexOf(filter.toLowerCase()) > -1;
-      let addressMatch = address.toLowerCase().indexOf(filter.toLowerCase()) > -1;
+    function match(text, name, address) {
+      let nameMatch = name.toLowerCase().indexOf(text.toLowerCase()) > -1;
+      let addressMatch = address.toLowerCase().indexOf(text.toLowerCase()) > -1;
       if (nameMatch || addressMatch) {
         return true;
       } else {
@@ -49,10 +49,15 @@ function Search(props) {
               <ListGroup id={"searchLocationsGroup"}>
                 { filteredData.length > 0
                   ? filteredData.map((location, i) => (
-                      <ListGroup.Item className="searchResult" action href={"#/location/" + location.id} key={location.name} tabindex={i+1}>
-                        <h5>{location.name}</h5>
-                        <p>{location.address}</p>
-                      </ListGroup.Item>
+                      <Link to={{
+                        pathname: '/location',
+                        data: location
+                      }} class="searchLink">
+                        <ListGroup.Item className="searchResult" action key={location.name} tabIndex={i+1}>
+                          <h5>{location.name}</h5>
+                          <p>{location.address}</p>
+                        </ListGroup.Item>
+                      </Link>
                     ))
                   : <ListGroup.Item><h5 id="noLocationsFound">No locations found.</h5></ListGroup.Item>
                 }

@@ -1,11 +1,11 @@
-create table hash_numbers
+create table if not exists hash_numbers
 (
     id     int          not null
         primary key,
     number varchar(255) null
 );
 
-create table polling_places
+create table if not exists polling_places
 (
     id        int auto_increment
         primary key,
@@ -13,10 +13,12 @@ create table polling_places
     name      varchar(255)         null,
     address   varchar(255)         null,
     precincts varchar(255)         null,
-    status    tinyint(1) default 1 null
+    status    tinyint(1) default 1 null,
+    lat       double               null,
+    lon       double               null
 );
 
-create table calculated_times
+create table if not exists calculated_times
 (
     id              int      not null
         primary key,
@@ -28,7 +30,7 @@ create table calculated_times
             on update cascade
 );
 
-create table wait_times
+create table if not exists wait_times
 (
     id              int auto_increment
         primary key,
@@ -45,5 +47,3 @@ create table wait_times
             on update cascade
 );
 
-
---Database code goes here

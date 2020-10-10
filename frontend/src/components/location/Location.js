@@ -1,4 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react';
+import { Redirect } from 'react-router-dom';
 import './Location.css';
 import Menu from "../menu/Menu";
 import {Badge, Col, Container, Row, Table, Alert,Button} from "react-bootstrap";
@@ -7,17 +8,22 @@ import mapboxgl from 'mapbox-gl';
 mapboxgl.accessToken = "pk.eyJ1IjoibWljaGFlbC1rMTAxIiwiYSI6ImNqajBkMXNmbDBnbzAza2x6Mnp1Mjl5YWIifQ.K5e1fvORu0_ZfSPH4cGlNA"
 
 function Location(props) {
+  console.log(localStorage.getItem("location_id"));
   const [location, setLocation] = useState({});
-  const mapboxElRef = useRef(null); // DOM element to render gmap
-  const lat = 33.7552
-  const long = -84.3803
+  const mapboxElRef = useRef(null); // DOM element to render map
+
   useEffect(() => {
-    // You can store the gmap instance with useRef too
+    let locationId = localStorage.getItem("location_id");
+    if (typeof props.location.data !== "undefined") {
+      localStorage.setItem("location_id", props.location.data.id);
+      locationId = localStorage.getItem("location_id");
+    }
+
     const map = new mapboxgl.Map({
       container: mapboxElRef.current,
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [-84.3803, 33.7552], // initial geo location
-      zoom: 10 // initial zoom
+      center: [-84.3803, 33.7552],
+      zoom: 10
     });
 
     // Add navigation controls to the top right of the canvas
@@ -33,7 +39,7 @@ function Location(props) {
         .setLngLat([-84.3803,33.7552])
         .addTo(map);
 
-    fetch('/api/locations/' + props.match.params.location_id)
+    fetch('/api/locations/' + locationId)
       .then(response => response.json())
       .then(data => {
         setLocation(data[0]);
