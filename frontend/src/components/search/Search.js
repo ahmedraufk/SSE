@@ -51,9 +51,9 @@ function Search(props) {
                   ? filteredData.map((location, i) => (
                       <Link to={{
                         pathname: '/location',
-                        data: location
-                      }} class="searchLink">
-                        <ListGroup.Item className="searchResult" action key={location.name} tabIndex={i+1}>
+                        location_id: location.id
+                      }} className="searchLink" key={location.id}>
+                        <ListGroup.Item className="searchResult" action key={location.id} tabIndex={i+1}>
                           <h5>{location.name}</h5>
                           <p>{location.address}</p>
                         </ListGroup.Item>

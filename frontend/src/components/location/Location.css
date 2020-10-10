@@ -3,6 +3,10 @@
     padding-top: 3em;
 }
 
+#locationAddress {
+    color: #8e8e93;
+}
+
 #map {
     width: 100%;
     height: 500px;

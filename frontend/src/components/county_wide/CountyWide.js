@@ -1,63 +1,53 @@
-import React, {useEffect, useRef, useState} from 'react';
-import './CountyWide.css';
+import React, { useEffect, useState } from 'react';
+import { Dropdown, Container, Row, Col, Card, Form } from "react-bootstrap";
+import {Link} from "react-router-dom";
 import Menu from "../menu/Menu";
-import {Dropdown, Container, Row, Col, Card, Button, Form, ListGroup} from "react-bootstrap";
+import './CountyWide.css';
 
 function CountyWide() {
-
   const [locations, setLocations] = useState([]);
+  const [filteredLocations, setFilteredLocations] = useState([]);
   const [sortBy, setSortBy] = useState("Alphabetical");
-  const countyWideRef = useRef(null); // DOM element to render gmap
-
-
-  const [data, setData] = useState(null);
-  const [filteredData,setFilteredData] = useState(null);
-
-
 
   useEffect(() => {
     fetch('/api/locations')
       .then(response => response.json())
-      .then(location => {
-
-        setData(location);
-        setFilteredData(location);
+      .then(locations => {
+        setLocations(locations);
+        setFilteredLocations(locations);
       })
-
-    countyWideRef.current.scrollTo(0,0);
-
   }, []);
 
-  function handleSearch(e){
+  function handleFilter(e){
     let searchText = e.target.value.toLowerCase();
-
-    var newData = data.filter(location => match(searchText, location.name, location.address));
-    console.log(newData)
-    setFilteredData(newData);
-
+    let newData = locations.filter(location => match(searchText, location.name, location.address));
+    setFilteredLocations(newData);
   }
 
   function match(filter, name, address) {
     let nameMatch = name.toLowerCase().indexOf(filter.toLowerCase()) > -1;
     let addressMatch = address.toLowerCase().indexOf(filter.toLowerCase()) > -1;
-    if (nameMatch || addressMatch) {
-      return true;
-    } else {
-      return false;
-    }
+    return nameMatch || addressMatch;
   }
 
   function sortCards(sort){
-    if(sort === "Alphabetical"){
-      filteredData.sort((a, b) => (a.name > b.name) ? 1 : -1);
-      setSortBy("Alphabetical");
+    let sorted;
+    switch (sort) {
+      case "Alphabetical":
+        sorted = filteredLocations.sort((a, b) => (a.name > b.name) ? 1 : -1);
+        setFilteredLocations(sorted);
+        setSortBy("Alphabetical");
+        break;
+      case "Lowest wait time":
+      //   sorted = filteredLocations.sort((a, b) => (a.wait_time > b.wait_time) ? 1 : -1);
+      //   setFilteredLocations(sorted);
+        setSortBy("Lowest wait time");
+        break;
     }
   }
 
-
-
   return (
-    <div className="countyWide" ref={countyWideRef}>
+    <div className="countyWide">
       <Menu/>
       <Container id="countyWideContainer">
         <Row className="d-flex align-items-center">
@@ -70,33 +60,37 @@ function CountyWide() {
                 Sort By: {sortBy}
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                {/*//write custom function - sortCards*/}
                 <Dropdown.Item onClick={() => sortCards("Alphabetical")}>Alphabetical</Dropdown.Item>
-
-                <Dropdown.Item onClick={() => sortCards("Highest wait time")}>Highest wait time</Dropdown.Item>
+                <Dropdown.Item onClick={() => sortCards("Lowest wait time")}>Lowest wait time</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Col>
         </Row>
         <Row>
-          <Form.Control id="searchBar" size="lg" type="search" placeholder="Select a location" onChange={handleSearch}/>
+          <Form.Control id="countyWideFilter"
+                        size="lg" type="search"
+                        placeholder="Filter locations"
+                        onChange={handleFilter}/>
         </Row>
         <Row id="cardsContainer">
-          {/*Have the cards be arranged by categories.*/}
-          {filteredData != null ? filteredData.map(location => (
-            <Card className="countyWideCard text-center">
-              <a href={"#/location/" + location.id}>
-                <Card.Header>{location.name}</Card.Header>
-                <Card.Body>
-                  <Card.Title><h1>24</h1></Card.Title>
-                  <Card.Text>
-                    minutes
-                  </Card.Text>
-                </Card.Body>
-              </a>
-            </Card>
-          ))
-            : <h5 id="noLocationsFound">No locations found.</h5>
+          {filteredLocations.length > 0
+            ? filteredLocations.map(location => (
+                <Link to={{
+                  pathname: '/location',
+                  location_id: location.id
+                }} key={location.id} className="countyWideCard text-center" >
+                  <Card key={location.id}>
+                    <Card.Header>{location.name}</Card.Header>
+                    <Card.Body>
+                      <Card.Title><h1>24</h1></Card.Title>
+                      <Card.Text>
+                        minutes
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Link>
+              ))
+            : <h5 id="countyWideNoLocationsFound">No locations found.</h5>
           }
         </Row>
       </Container>

@@ -1,5 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {Alert, Badge, Button, Col, Container, Row, Table} from "react-bootstrap";
+import { Alert, Badge, Button, Col, Container, Row, Table } from "react-bootstrap";
 import mapboxgl from 'mapbox-gl';
 import Menu from "../menu/Menu";
 import gmapsLogo from '../../res/img/googleMaps.png';
@@ -13,8 +13,8 @@ function Location(props) {
 
   useEffect(() => {
     let locationId = localStorage.getItem("location_id");
-    if (typeof props.location.data !== "undefined") {
-      localStorage.setItem("location_id", props.location.data.id);
+    if (typeof props.location.location_id !== "undefined") {
+      localStorage.setItem("location_id", props.location.location_id);
       locationId = localStorage.getItem("location_id");
     }
 
@@ -31,10 +31,10 @@ function Location(props) {
         map.addControl(new mapboxgl.NavigationControl());
         map.addControl(new mapboxgl.ScaleControl());
         const marker = new mapboxgl.Marker()
-          .setLngLat([data[0].lon,data[0].lat])
+          .setLngLat([data[0].lon, data[0].lat])
           .addTo(map);
       });
-  }, []);
+  }, [props.location.data]);
 
   return (
     <div className="location">
@@ -50,7 +50,7 @@ function Location(props) {
                     variant="light"
                     href={"https://www.google.com/maps/dir/?api=1&destination="+location.lat+","+location.lon}
                     target="_blank">
-              <img class="img-fluid" id="gmapsLogo" src={gmapsLogo}/>
+              <img className="img-fluid" id="gmapsLogo" src={gmapsLogo} alt="Google maps logo"/>
               Get Directions
             </Button>
           </Col>
@@ -137,7 +137,6 @@ function Location(props) {
             </Alert>
           </Col>
         </Row>
-
       </Container>
     </div>
   );
