@@ -2,3 +2,16 @@
 #menu {
     background-color: #154B7D;
 }
+
+#menu img {
+    margin-left: 0.5em;
+}
+
+#menu i {
+    margin-right: 0.4em;
+}
+
+.nav-link {
+    margin-left: 0.5em;
+    margin-right: 0.25em;
+}
