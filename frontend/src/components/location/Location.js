@@ -1,8 +1,8 @@
 import React, {useState, useRef, useEffect} from 'react';
-import { Alert, Badge, Button, Col, Container, Row } from "react-bootstrap";
+import {Badge, Button, Col, Container, Row} from "react-bootstrap";
+import Menu from "../menu/Menu";
 import mapboxgl from 'mapbox-gl';
 import Chart from "chart.js";
-import Menu from "../menu/Menu";
 import gmapsLogo from '../../res/img/googleMaps.png';
 import './Location.css';
 
@@ -28,10 +28,9 @@ function Location(props) {
           container: mapboxElRef.current,
           style: "mapbox://styles/mapbox/streets-v11",
           center: [data[0].lon, data[0].lat],
-          zoom: 11
+          zoom: 12
         });
         map.addControl(new mapboxgl.NavigationControl());
-        map.addControl(new mapboxgl.ScaleControl());
         new mapboxgl.Marker()
           .setLngLat([data[0].lon, data[0].lat])
           .addTo(map);
@@ -39,7 +38,7 @@ function Location(props) {
 
     const myChartRef = chartRef.current.getContext("2d");
     new Chart(myChartRef, {
-      type: 'bar',
+      type: 'line',
       data: {
         labels: ['8-9 AM', '9-10 AM', '10-11 AM', '11-12 PM', '12-1 PM', '1-2 PM', '2-3 PM', '3-4 PM', '4-5 PM', '5-6 PM', '6-7 PM', '7-8 PM'],
         datasets: [{
@@ -88,8 +87,6 @@ function Location(props) {
     });
   }, [props.location.location_id]);
 
-
-
   return (
     <div className="location">
       <Menu pageLocation="location"/>
@@ -110,9 +107,9 @@ function Location(props) {
           </Col>
           <Col lg={6}>
             <div className="waitTimesCard">
-              <h6>Current Wait Time</h6>
-              <h1 id="timeLabel">24 minutes</h1>
-              <p id="lastUpdatedLabel">Last updated:</p>
+              <h4><Badge variant="primary">Current Wait Time</Badge></h4>
+              <h1>24 minutes</h1>
+              <p id="lastUpdatedLabel">Last updated: Today at 9:45 AM</p>
             </div>
             <div className="waitTimesCard">
               <Row>
@@ -132,11 +129,7 @@ function Location(props) {
                 </Col>
               </Row>
             </div>
-              <canvas
-                id="myChart"
-                ref={chartRef}
-              />
-            <Alert variant="warning" id="closingAlert">Polls close at 8 PM.</Alert>
+            <canvas id="myChart" ref={chartRef}/>
           </Col>
         </Row>
       </Container>

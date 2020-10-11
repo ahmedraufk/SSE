@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Dropdown, Container, Row, Col, Card, Form } from "react-bootstrap";
+import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
+import {Dropdown, Container, Row, Col, Form} from "react-bootstrap";
 import Menu from "../menu/Menu";
 import './CountyWide.css';
 
@@ -24,9 +24,9 @@ function CountyWide() {
     setFilteredLocations(newData);
   }
 
-  function match(filter, name, address) {
-    let nameMatch = name.toLowerCase().indexOf(filter.toLowerCase()) > -1;
-    let addressMatch = address.toLowerCase().indexOf(filter.toLowerCase()) > -1;
+  function match(text, name, address) {
+    let nameMatch = name.toLowerCase().indexOf(text.toLowerCase()) > -1;
+    let addressMatch = address.toLowerCase().indexOf(text.toLowerCase()) > -1;
     return nameMatch || addressMatch;
   }
 
@@ -58,7 +58,7 @@ function CountyWide() {
           </Col>
           <Col id="dropdownColumn">
             <Dropdown id="sortDropdown">
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
+              <Dropdown.Toggle variant="success">
                 Sort By: {sortBy}
               </Dropdown.Toggle>
               <Dropdown.Menu>
@@ -70,26 +70,24 @@ function CountyWide() {
         </Row>
         <Row>
           <Form.Control id="countyWideFilter"
-                        size="lg" type="search"
-                        placeholder="Filter locations"
+                        size="lg"
+                        type="search"
+                        placeholder="Type to filter..."
                         onChange={handleFilter}/>
         </Row>
         <Row id="cardsContainer">
-          {filteredLocations.length > 0
+          { filteredLocations.length > 0
             ? filteredLocations.map(location => (
                 <Link to={{
                   pathname: '/location',
                   location_id: location.id
-                }} key={location.id} className="countyWideCard text-center" >
-                  <Card key={location.id}>
-                    <Card.Header>{location.name}</Card.Header>
-                    <Card.Body>
-                      <Card.Title><h1>24</h1></Card.Title>
-                      <Card.Text>
-                        minutes
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
+                }} key={location.id} className="countyWideCard" >
+                  <h6 id="nameLabel">{location.name}</h6>
+                  <h6 id="addressLabel">{location.address}</h6>
+                  <div id="timeLabelContainer">
+                    <h1 id="minutes">24</h1>
+                    <h4 id="minutesLabel">minutes</h4>
+                  </div>
                 </Link>
               ))
             : <h5 id="countyWideNoLocationsFound">No locations found.</h5>

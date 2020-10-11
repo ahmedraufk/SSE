@@ -14,19 +14,15 @@
 }
 
 #directionsButton {
+    text-align: center;
     margin-top: 1em;
-    padding-left: 0.75em;
     font-weight: 600;
+    width: 100%;
 }
 
 #gmapsLogo {
     max-width: 35px;
     margin-right: 0.25em;
-    margin-left: 0;
-}
-
-#getDirectionsText {
-    padding-top: 2em;
 }
 
 .waitTimesCard {
@@ -34,6 +30,7 @@
     padding: 2em;
     text-align: center;
     margin-top: 2em;
+    border-radius: 5px;
 }
 
 .waitTimesCard p {
@@ -44,20 +41,12 @@
     border-right: 1px solid #e5e5ea;
 }
 
-#timeLabel {
-    font-size: 64px;
-}
-
 #lastUpdatedLabel {
     font-style: italic;
 }
 
-#highestLowest {
-    margin-top: 2em;
-}
-
-#highestLowest h3 {
-    margin: 0;
+.badge {
+    padding: 0.4em 0.75em !important;
 }
 
 #myChart {
@@ -66,10 +55,4 @@
 
 #closingAlert {
     margin-top: 2em;
-}
-
-@media only screen and (max-width: 992px) {
-    .location h5 {
-        padding-top: 2em;
-    }
 }

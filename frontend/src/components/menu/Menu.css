@@ -16,7 +16,7 @@
     margin-right: 0.25em;
 }
 
-.dropdown-menu {
+#menuDropdownMenu {
     right: 0;
     left: auto !important;
     margin-top: 0.5em !important;

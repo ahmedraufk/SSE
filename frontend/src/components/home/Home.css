@@ -1,15 +1,15 @@
-#header{
+#header {
     background: #154B7D;
-    padding: 36px;
+    padding: 2em;
 }
 
 #header img {
-    padding: 36px;
+    padding: 2em;
 }
 
 #headerTextColumn h1 {
-    text-align: center;
     color: white;
+    text-align: center;
     font-weight: bold;
 }
 
