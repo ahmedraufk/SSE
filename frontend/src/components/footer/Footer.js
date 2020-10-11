@@ -1,7 +1,7 @@
 import React from 'react';
 import './Footer.css';
 
-function Info() {
+function Footer() {
 
   return (
     <footer className="footer text-muted">
@@ -10,4 +10,4 @@ function Info() {
   );
 }
 
-export default Info;
+export default Footer;

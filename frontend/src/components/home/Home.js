@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import "./Home.css";
-import Search from "../search/Search";
 import {Container, Col, Row} from "react-bootstrap";
+import Search from "../search/Search";
 import headerImage from '../../res/img/sociallyDistantVoters.svg'
+import "./Home.css";
 
-function Home(props) {
-
+function Home() {
     const[data,setData] = useState([]);
 
     useEffect(() => {
@@ -14,16 +13,15 @@ function Home(props) {
             .then(data => {
                 setData(data);
             });
-        window.scrollTo(0,0);
     }, []);
 
     return (
         <div className="home">
-            <div id={"header"}>
+            <div id="header">
               <Container>
                 <Row className="d-flex align-items-center">
                   <Col md={6}>
-                    <img className={"img-fluid"} src={headerImage} alt={'Graphic showing socially distant voters'}/>
+                    <img className="img-fluid" src={headerImage} alt="Graphic showing socially distant voters"/>
                   </Col>
                   <Col id="headerTextColumn" md={6}>
                     <h1>Welcome to the Fulton County voter wait time portal!</h1>

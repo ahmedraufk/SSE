@@ -4,9 +4,8 @@ import './Popup.css';
 
 function Popup() {
     const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    function handleClose() {setShow(false)};
+    function handleShow() {setShow(true)};
 
     return (
         <div id="dontKnowPopup">
@@ -33,6 +32,5 @@ function Popup() {
         </div>
     );
 }
-
 
 export default Popup;

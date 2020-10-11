@@ -27,6 +27,10 @@
     overflow-y: auto;
 }
 
+.searchLink {
+    text-decoration: none !important;
+}
+
 .searchResult {
     margin: 0;
     text-align: left !important;

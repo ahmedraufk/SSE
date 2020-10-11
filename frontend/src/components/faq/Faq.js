@@ -1,8 +1,8 @@
 import React from 'react';
-import './Faq.css';
+import {Accordion, Card, Button, Container} from 'react-bootstrap';
 import Menu from "../menu/Menu";
 import faq from '../../res/faq.json';
-import {Accordion, Card, Button, Container} from 'react-bootstrap';
+import './Faq.css';
 
 function Faq() {
 
@@ -11,19 +11,20 @@ function Faq() {
       <Menu/>
       <Container className="faqContainer">
         <h1>FAQs</h1>
-        <Accordion id="faqAccordion" efaultActiveKey="0">
-          {faq.map((question, i) => (
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey={i+1}>
-                  {question.text}
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey={i+1}>
-                <Card.Body>{question.answer}</Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          ))}
+        <Accordion id="faqAccordion" defaultActiveKey="0">
+          { faq.map((question, i) => (
+              <Card key={i+1}>
+                <Card.Header>
+                  <Accordion.Toggle as={Button} variant="link" eventKey={i+1}>
+                    {question.text}
+                  </Accordion.Toggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey={i+1}>
+                  <Card.Body>{question.answer}</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            ))
+          }
         </Accordion>
       </Container>
     </div>
