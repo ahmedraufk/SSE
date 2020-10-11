@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Nav, Navbar, FormControl, Dropdown} from "react-bootstrap";
-import {Link, useLocation} from "react-router-dom";
+import {Link} from "react-router-dom";
 import './Menu.css';
 import sociallyDistantVoters from '../../res/img/sociallyDistantVoters.svg';
 
 function Menu(props) {
   const pageLocation = props.pageLocation
-  const [filter, setFilter] = useState('');
   const [locations, setLocations] = useState([]);
   const [filteredLocations, setFilteredLocations] = useState([]);
 
@@ -26,18 +25,14 @@ function Menu(props) {
 
   function handleSearch(e) {
     let searchText = e.target.value.toLowerCase();
-    var newData = locations.filter(location => match(searchText, location.name, location.address));
+    let newData = locations.filter(location => match(searchText, location.name, location.address));
     setFilteredLocations(newData);
   }
 
   function match(text, name, address) {
     let nameMatch = name.toLowerCase().indexOf(text.toLowerCase()) > -1;
     let addressMatch = address.toLowerCase().indexOf(text.toLowerCase()) > -1;
-    if (nameMatch || addressMatch) {
-      return true;
-    } else {
-      return false;
-    }
+    return nameMatch || addressMatch;
   }
 
   return (

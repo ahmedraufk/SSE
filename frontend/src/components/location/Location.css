@@ -30,7 +30,7 @@
 }
 
 .waitTimesCard {
-    border: 1px solid #e5e5ea;
+    box-shadow: 0px 0px 10px 0px #e5e5ea;
     padding: 2em;
     text-align: center;
     margin-top: 2em;
@@ -38,6 +38,10 @@
 
 .waitTimesCard p {
     margin: 0;
+}
+
+.waitTimesCard .row .col:nth-child(1) {
+    border-right: 1px solid #e5e5ea;
 }
 
 #timeLabel {
@@ -56,14 +60,11 @@
     margin: 0;
 }
 
-#highestLowestTime {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
+#myChart {
+    margin-top: 2em;
 }
 
-#predictedTimes {
+#closingAlert {
     margin-top: 2em;
 }
 

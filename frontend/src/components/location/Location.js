@@ -1,6 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react';
-import { Alert, Badge, Button, Col, Container, Row, Table } from "react-bootstrap";
+import { Alert, Badge, Button, Col, Container, Row } from "react-bootstrap";
 import mapboxgl from 'mapbox-gl';
+import Chart from "chart.js";
 import Menu from "../menu/Menu";
 import gmapsLogo from '../../res/img/googleMaps.png';
 import './Location.css';
@@ -10,6 +11,7 @@ mapboxgl.accessToken = "pk.eyJ1IjoibWljaGFlbC1rMTAxIiwiYSI6ImNqajBkMXNmbDBnbzAza
 function Location(props) {
   const [location, setLocation] = useState({});
   const mapboxElRef = useRef(null);
+  const chartRef = useRef(null);
 
   useEffect(() => {
     let locationId = localStorage.getItem("location_id");
@@ -30,18 +32,70 @@ function Location(props) {
         });
         map.addControl(new mapboxgl.NavigationControl());
         map.addControl(new mapboxgl.ScaleControl());
-        const marker = new mapboxgl.Marker()
+        new mapboxgl.Marker()
           .setLngLat([data[0].lon, data[0].lat])
           .addTo(map);
       });
-  }, [props.location.data]);
+
+    const myChartRef = chartRef.current.getContext("2d");
+    new Chart(myChartRef, {
+      type: 'bar',
+      data: {
+        labels: ['8-9 AM', '9-10 AM', '10-11 AM', '11-12 PM', '12-1 PM', '1-2 PM', '2-3 PM', '3-4 PM', '4-5 PM', '5-6 PM', '6-7 PM', '7-8 PM'],
+        datasets: [{
+          label: 'Today\'s Wait Times',
+          data: [12, 19, 3, 5, 2, 3, 9, 10, 11, 12, 13, 14],
+          backgroundColor: [
+            'rgba(21, 75, 125, 0.3)',
+            'rgba(21, 75, 125, 0.3)',
+            'rgba(21, 75, 125, 0.3)',
+            'rgba(21, 75, 125, 0.3)',
+            'rgba(21, 75, 125, 0.3)',
+            'rgba(21, 75, 125, 0.3)',
+            'rgba(21, 75, 125, 0.3)',
+            'rgba(21, 75, 125, 0.3)',
+            'rgba(21, 75, 125, 0.3)',
+            'rgba(21, 75, 125, 0.3)',
+            'rgba(21, 75, 125, 0.3)',
+            'rgba(21, 75, 125, 0.3)'
+          ],
+          borderColor: [
+            'rgba(21, 75, 125, 1)',
+            'rgba(21, 75, 125, 1)',
+            'rgba(21, 75, 125, 1)',
+            'rgba(21, 75, 125, 1)',
+            'rgba(21, 75, 125, 1)',
+            'rgba(21, 75, 125, 1)',
+            'rgba(21, 75, 125, 1)',
+            'rgba(21, 75, 125, 1)',
+            'rgba(21, 75, 125, 1)',
+            'rgba(21, 75, 125, 1)',
+            'rgba(21, 75, 125, 1)',
+            'rgba(21, 75, 125, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+  }, [props.location.location_id]);
+
+
 
   return (
     <div className="location">
       <Menu pageLocation="location"/>
       <Container id="locationContainer">
         <Row>
-          <Col lg={4}>
+          <Col lg={6}>
             <h2 id="locationName">{location.name}</h2>
             <h6 id="locationAddress">{location.address}</h6>
             <div id="map" ref={mapboxElRef}/>
@@ -54,87 +108,35 @@ function Location(props) {
               Get Directions
             </Button>
           </Col>
-          <Col lg={4}>
-            <h5>Current Times</h5>
+          <Col lg={6}>
             <div className="waitTimesCard">
-              <h6>Current wait time</h6>
-              <h1 id="timeLabel">24</h1>
-              <h6>minutes</h6>
+              <h6>Current Wait Time</h6>
+              <h1 id="timeLabel">24 minutes</h1>
               <p id="lastUpdatedLabel">Last updated:</p>
             </div>
             <div className="waitTimesCard">
-              <h4><Badge variant="success">Lowest Today</Badge></h4>
-              <div>
-                <h3>30 minutes</h3>
-                <p>at 9:30 AM</p>
-              </div>
+              <Row>
+                <Col>
+                  <h4><Badge variant="success">Lowest Today</Badge></h4>
+                  <div>
+                    <h3>30 minutes</h3>
+                    <p>at 9:30 AM</p>
+                  </div>
+                </Col>
+                <Col>
+                  <h4><Badge variant="danger">Highest Today</Badge></h4>
+                  <div>
+                    <h3>45 minutes</h3>
+                    <p>at 8:15 AM</p>
+                  </div>
+                </Col>
+              </Row>
             </div>
-            <div className="waitTimesCard">
-              <h4><Badge variant="danger">Highest Today</Badge></h4>
-              <div>
-                <h3>45 minutes</h3>
-                <p>at 8:15 AM</p>
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <h5>Predicted Times</h5>
-            <Table bordered id="predictedTimes">
-              <tbody>
-                <tr>
-                  <td>8AM - 9AM</td>
-                  <td>15 mins</td>
-                </tr>
-                <tr>
-                  <td>9AM - 10AM</td>
-                  <td>15 mins</td>
-                </tr>
-                <tr>
-                  <td>10AM - 11AM</td>
-                  <td>15 mins</td>
-                </tr>
-                <tr>
-                  <td>11AM - 12PM</td>
-                  <td>15 mins</td>
-                </tr>
-                <tr>
-                  <td>12PM - 1PM</td>
-                  <td>15 mins</td>
-                </tr>
-                <tr>
-                  <td>1PM - 2PM</td>
-                  <td>15 mins</td>
-                </tr>
-                <tr>
-                  <td>2PM - 3PM</td>
-                  <td>15 mins</td>
-                </tr>
-                <tr>
-                  <td>3PM - 4PM</td>
-                  <td>15 mins</td>
-                </tr>
-                <tr>
-                  <td>4PM - 5PM</td>
-                  <td>15 mins</td>
-                </tr>
-                <tr>
-                  <td>5PM - 6PM</td>
-                  <td>15 mins</td>
-                </tr>
-                <tr>
-                  <td>6PM - 7PM</td>
-                  <td>15 mins</td>
-                </tr>
-                <tr>
-                  <td>7PM - 8PM</td>
-                  <td>15 mins</td>
-                </tr>
-              </tbody>
-            </Table>
-            <Alert variant="warning">Polls close at 8 PM.</Alert>
-            <Alert variant="info">
-              <Alert.Link href="#/FAQ">How was this data calculated?</Alert.Link>
-            </Alert>
+              <canvas
+                id="myChart"
+                ref={chartRef}
+              />
+            <Alert variant="warning" id="closingAlert">Polls close at 8 PM.</Alert>
           </Col>
         </Row>
       </Container>

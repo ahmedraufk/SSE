@@ -43,6 +43,8 @@ function CountyWide() {
       //   setFilteredLocations(sorted);
         setSortBy("Lowest wait time");
         break;
+      default:
+        break;
     }
   }
 

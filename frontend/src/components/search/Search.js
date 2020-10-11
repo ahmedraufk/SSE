@@ -22,18 +22,14 @@ function Search(props) {
       } else {
         setHidden(true);
       }
-      var newData = data.filter(location => match(searchText, location.name, location.address));
+      let newData = data.filter(location => match(searchText, location.name, location.address));
       setFilteredData(newData);
     }
 
     function match(text, name, address) {
       let nameMatch = name.toLowerCase().indexOf(text.toLowerCase()) > -1;
       let addressMatch = address.toLowerCase().indexOf(text.toLowerCase()) > -1;
-      if (nameMatch || addressMatch) {
-        return true;
-      } else {
-        return false;
-      }
+      return nameMatch || addressMatch;
     }
 
     return (
