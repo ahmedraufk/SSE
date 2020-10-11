@@ -18,6 +18,9 @@ router.get('/locations', (req, res) => {
 // Single location
 router.get('/locations/:id', (req, res) => {
   db.query(queries.select_location + req.params.id)
+    .then(rows => {
+      //get waittime
+    })
     .then(rows => res.status(200).json(rows))
     .catch(err => {
       winston.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
