@@ -26,7 +26,7 @@ function Popup() {
                     Enter your details on this page to find your polling place, then come back with the address or name.
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" href="https://www.mvp.sos.ga.gov" target="_blank">Go</Button>
+                    <Button variant="primary" href="https://www.mvp.sos.ga.gov" target="_blank" onClick={handleClose}>Go</Button>
                 </Modal.Footer>
             </Modal>
         </div>

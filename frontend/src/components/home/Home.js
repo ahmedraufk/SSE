@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Container, Col, Row} from "react-bootstrap";
+import Menu from "../menu/Menu";
 import Search from "../search/Search";
 import headerImage from '../../res/img/sociallyDistantVoters.svg'
 import "./Home.css";
@@ -17,6 +18,7 @@ function Home() {
 
     return (
         <div className="home">
+          <Menu/>
             <div id="header">
               <Container>
                 <Row className="d-flex align-items-center">

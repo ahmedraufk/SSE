@@ -108,7 +108,7 @@ function Location(props) {
           <Col lg={6}>
             <div className="waitTimesCard">
               <h4><Badge variant="primary">Current Wait Time</Badge></h4>
-              <h1>24 minutes</h1>
+              <h1>35 minutes</h1>
               <p id="lastUpdatedLabel">Last updated: Today at 9:45 AM</p>
             </div>
             <div className="waitTimesCard">
