@@ -4,6 +4,9 @@
   "insert_reject" : "insert into wait_times (timestamp, original_time, pollingplace_id, phone_id) values (?, ?, ?, ?)",
   "insert_accept" : "insert into wait_times (timestamp, original_time, parsed_time, pollingplace_id, phone_id) values (?, ?, ?, ?, ?)",
   "select_location_id" : "select id from polling_places where phone = ",
-  "select_phone_id" : "select id from hash_numbers where number = ",
-  "insert_phone" : "insert into hash_numbers (number) values (?)"
+  "select_phone_id" : "select * from hash_numbers where number = ",
+  "insert_phone" : "insert into hash_numbers (number) values (?)",
+  "select_calculated_time": "select * from calculated_times where timestamp = (select max(timestamp) from calculated_times where pollingplace_id = ",
+  "select_calculated_time_count": "select count(*) from calculated_times where pollingplace_id = ",
+  "insert_calculated_time": "insert into calculated_times (timestamp, estimated_time, pollingplace_id) values (?, ?, ?)"
 }
