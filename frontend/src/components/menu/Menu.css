@@ -31,7 +31,6 @@
 }
 
 #dropdownMenuFilter {
-    width: 90%;
     margin: 1em;
 }
 
@@ -52,8 +51,9 @@
 }
 
 @media only screen and (max-width: 768px) {
-    .dropdown-menu {
+    #menuDropdownMenu {
         left: 0 !important;
         right: auto;
+        width: 100%;
     }
 }
