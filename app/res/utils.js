@@ -21,8 +21,10 @@ module.exports = {
       .then((result) => {
         let runningAverage = 0;
         let weight;
+        let timestamp;
         if (result.length > 0) {
-          runningAverage = result[0].estimated_time
+          runningAverage = result[0].estimated_time;
+          timestamp = result[0].timestamp;
         }
 
         if (minutes < 5.0) {
