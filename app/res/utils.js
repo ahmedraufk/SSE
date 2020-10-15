@@ -17,8 +17,11 @@ module.exports = {
     });
   },
   calcWaitTime: (minutes, locationId) => {
-    return db.query(queries.select_calculated_time + locationId + " )")
+    return db.query(queries.select_time + locationId + " )")
       .then((result) => {
+
+        // TODO - fix algorithm
+
         let runningAverage = 0;
         let weight;
         let timestamp;
@@ -44,7 +47,7 @@ module.exports = {
         }
 
         runningAverage = (1 - weight) * runningAverage + weight * minutes;
-        return db.query(queries.insert_calculated_time, [new Date(), runningAverage, locationId]);
+        return db.query(queries.insert_time, [new Date(), runningAverage, locationId]);
       });
   }
 }

@@ -1,11 +1,4 @@
-create table if not exists hash_numbers
-(
-    id     int          not null
-        primary key,
-    number varchar(255) null
-);
-
-create table if not exists polling_places
+create table if not exists locations
 (
     id        int auto_increment
         primary key,
@@ -18,32 +11,33 @@ create table if not exists polling_places
     lon       double               null
 );
 
-create table if not exists calculated_times
+create table if not exists numbers
 (
-    id              int      not null
+    id          int auto_increment
         primary key,
-    pollingplace_id int      null,
-    timestamp       datetime null,
-    estimated_time  int      null,
-    constraint calculated_times_polling_places_id_fk
-        foreign key (pollingplace_id) references polling_places (id)
-            on update cascade
+    number      varchar(255)         null,
+    whitelisted tinyint(1) default 0 null
 );
 
-create table if not exists wait_times
+create table if not exists reports
 (
-    id              int auto_increment
+    id            int auto_increment
         primary key,
-    timestamp       datetime     null,
-    original_time   varchar(255) null,
-    parsed_time     int          null,
-    pollingplace_id int          null,
-    phone_id        int          null,
-    constraint wait_times_hash_numbers_id_fk
-        foreign key (phone_id) references hash_numbers (id)
-            on update cascade,
-    constraint wait_times_polling_places_id_fk
-        foreign key (pollingplace_id) references polling_places (id)
-            on update cascade
+    timestamp     datetime     null,
+    original_time varchar(255) null,
+    parsed_time   int          null,
+    location_id   int          null,
+    constraint reports_locations_id_fk
+        foreign key (location_id) references locations (id)
 );
 
+create table if not exists times
+(
+    id             int auto_increment
+        primary key,
+    timestamp      datetime null,
+    estimated_time int      null,
+    location_id    int      null,
+    constraint times_locations_id_fk
+        foreign key (location_id) references locations (id)
+);
