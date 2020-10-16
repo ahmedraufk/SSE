@@ -14,6 +14,7 @@ function Location(props) {
   const chartRef = useRef(null);
 
   useEffect(() => {
+    window.scrollTo(0,0);
     let locationId = localStorage.getItem("location_id");
     if (typeof props.location.location_id !== "undefined") {
       localStorage.setItem("location_id", props.location.location_id);

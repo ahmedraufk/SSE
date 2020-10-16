@@ -9,7 +9,8 @@ function Home() {
     const[data,setData] = useState([]);
 
     useEffect(() => {
-        fetch('/api/locations')
+      window.scrollTo(0,0);
+      fetch('/api/locations')
             .then(response => response.json())
             .then(data => {
                 setData(data);

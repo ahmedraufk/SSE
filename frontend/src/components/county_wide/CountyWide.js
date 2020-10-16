@@ -10,6 +10,7 @@ function CountyWide() {
   const [sortBy, setSortBy] = useState("Alphabetical");
 
   useEffect(() => {
+    window.scrollTo(0,0);
     fetch('/api/locations')
       .then(response => response.json())
       .then(locations => {
