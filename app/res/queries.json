@@ -1,7 +1,7 @@
 {
   "select_locations": "select * from locations order by name asc",
   "select_location": "select * from locations where id = ",
-  "select_time": "select * from times where timestamp = (select max(timestamp) from times where location_id = ",
+  "select_time": "select estimated_time from times where timestamp = (select max(timestamp) from times where location_id = ",
   "select_time_count": "select count(*) from times where location_id = ",
   "select_lowest_time": "select min(estimated_time) from times where location_id = ",
   "select_highest_time": "select max(estimated_time) from times where location_id = ",
