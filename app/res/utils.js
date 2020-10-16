@@ -49,6 +49,31 @@ module.exports = {
         runningAverage = (1 - weight) * runningAverage + weight * minutes;
         return db.query(queries.insert_time, [new Date(), runningAverage, locationId]);
       });
+  },
+  getTimes: (location) => {
+    return db.query(queries.select_lowest_time + location.id)
+      .then(lowestTime => {
+        location.lowestTime = lowestTime[0]['min(estimated_time)']
+        return location
+      })
+      .then(location => {
+        return db.query(queries.select_highest_time + location.id)
+          .then(highestTime => {
+            location.highestTime = highestTime[0]['max(estimated_time)']
+            return location
+          })
+      })
+      .then(location => {
+        return db.query(queries.select_time + location.id + ")")
+          .then(currentTime => {
+            if (currentTime.length > 0) {
+              location.currentTime = currentTime[0]['estimated_time']
+            } else {
+              location.currentTime = null
+            }
+            return location
+          })
+      });
   }
 }
 

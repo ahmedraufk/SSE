@@ -24,16 +24,16 @@ function Location(props) {
     fetch('/api/locations/' + locationId)
       .then(response => response.json())
       .then(data => {
-        setLocation(data[0]);
+        setLocation(data);
         const map = new mapboxgl.Map({
           container: mapboxElRef.current,
           style: "mapbox://styles/mapbox/streets-v11",
-          center: [data[0].lon, data[0].lat],
+          center: [data.lon, data.lat],
           zoom: 12
         });
         map.addControl(new mapboxgl.NavigationControl());
         new mapboxgl.Marker()
-          .setLngLat([data[0].lon, data[0].lat])
+          .setLngLat([data.lon, data.lat])
           .addTo(map);
       });
 
