@@ -53,6 +53,7 @@ function Menu(props) {
           <Nav.Link href="#/countyWide" className="menuLink"><i className="far fa-building"/>County Wide</Nav.Link>
           <Nav.Link href="#/faq" className="menuLink"><i className="far fa-question-circle"/>FAQs</Nav.Link>
         </Nav>
+        { props.showDropdown &&
         <Dropdown>
           <Dropdown.Toggle variant="light">
             Select a location
@@ -95,6 +96,7 @@ function Menu(props) {
             </Container>
           </Dropdown.Menu>
         </Dropdown>
+        }
       </Navbar.Collapse>
     </Navbar>
   );

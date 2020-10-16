@@ -89,7 +89,7 @@ function Location(props) {
 
   return (
     <div className="location">
-      <Menu pageLocation="location"/>
+      <Menu pageLocation="location" showDropdown={true}/>
       <Container id="locationContainer">
         <Row>
           <Col lg={6}>

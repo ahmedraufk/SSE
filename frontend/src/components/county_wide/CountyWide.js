@@ -50,7 +50,7 @@ function CountyWide() {
 
   return (
     <div className="countyWide">
-      <Menu pageLocation="countyWide"/>
+      <Menu pageLocation="countyWide" showDropdown={true}/>
       <Container id="countyWideContainer">
         <Row className="d-flex align-items-center">
           <Col sm={6}>

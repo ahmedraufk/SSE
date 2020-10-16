@@ -18,7 +18,7 @@ function Home() {
 
     return (
         <div className="home">
-          <Menu/>
+          <Menu showDropdown={false}/>
             <div id="header">
               <Container>
                 <Row className="d-flex align-items-center">
