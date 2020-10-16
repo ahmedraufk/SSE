@@ -1,29 +1,33 @@
 {
-  "name": "sse-app",
-  "version": "1.0.0",
-  "description": "Chatbot app for SSE project",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "dependencies": {
+    "app-root-path": "^3.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "install": "^0.13.0",
+    "lodash": "^4.17.20",
+    "mariadb": "^2.4.2",
+    "morgan": "^1.10.0",
+    "ngrok": "^3.3.0",
+    "python-shell": "^2.0.2",
+    "twilio": "^3.49.4",
+    "winston": "^3.3.3"
   },
+  "description": "Chatbot for 2020 election wait times.",
+  "devDependencies": {
+    "jest": "^26.4.2",
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2"
+  },
+  "license": "MIT",
+  "main": "server.js",
+  "name": "api",
   "repository": {
     "type": "git",
-    "url": "git@github.gatech.edu:ez4/sse.git"
+    "url": "https://github.gatech.edu/ez4/sse.git"
   },
-  "keywords": [
-    "chatbot",
-    "app"
-  ],
-  "author": "Ahmed Klasra",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.1",
-    "gh-pages": "^3.1.0",
-    "http": "0.0.1-security",
-    "i": "^0.3.6",
-    "mariadb": "^2.4.2",
-    "mysql": "^2.18.1",
-    "save": "^2.4.0",
-    "twilio": "^3.49.4"
-  }
+  "scripts": {
+    "start": "nodemon server.js --watch ./*",
+    "test": "jest --detectOpenHandles"
+  },
+  "version": "1.0.0"
 }
