@@ -5,7 +5,7 @@
   "select_time_count": "select count(*) from times where location_id = ",
   "select_lowest_time": "select min(estimated_time) from times where location_id = ",
   "select_highest_time": "select max(estimated_time) from times where location_id = ",
-  "select_location_id" : "select id from locations where phone = ",
+  "select_location_info" : "select id, name from locations where phone = ",
   "select_phone_id" : "select * from numbers where number = ",
 
   "insert_reject" : "insert into reports (timestamp, original_time, location_id) values (?, ?, ?)",

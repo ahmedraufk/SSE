@@ -46,27 +46,30 @@ router.post('/sms', function(req, res) {
         });
     })
     .then(result => {
-      return db.query(queries.select_location_id + toNum)
+      return db.query(queries.select_location_info + toNum)
         .then(locationResult => {
           result.locationId = locationResult[0].id;
+          result.locationName = locationResult[0].name;
           return result
         });
     })
     .then(result => {
       if (!result.minutes) {
-        twiml.message("Thank you for sharing. Unfortunately, we couldn't understand what you sent. Please send your wait time in following format: \"15 min\"");
+        twiml.message("Sorry, we couldn\'t understand what you sent. Please send your wait time in the following format: \"15 min\"");
         res.writeHead(200, {'Content-Type': 'text/xml'});
         res.end(twiml.toString());
         const values = [new Date(), input, result.locationId];
         return db.query(queries.insert_reject, values);
       } else if (result.phoneId === -1) {
-        twiml.message("We've already received your wait time report. Thanks for your participation!");
+        twiml.message("We've already received your wait time report. Thank you for participating!");
         res.writeHead(200, {'Content-Type': 'text/xml'});
         res.end(twiml.toString());
       } else {
         utils.calcWaitTime(result.minutes, result.locationId)
           .then(() => {
-            twiml.message("Thank you for sharing. This will help alert your neighbors and others to the wait time at this location. Please visit www.ourwebsite.com for more up to date information about wait times.");
+            const survey = utils.createSurveyURL(result.locationName, result.minutes);
+            twiml.message("Thank you for sharing! Your message will help inform others about this " +
+              "location's wait time. We'd greatly appreciate it if you could take this survey: " + survey);
             res.writeHead(200, {'Content-Type': 'text/xml'});
             res.end(twiml.toString());
             const values = [new Date(), input, result.minutes, result.locationId];
