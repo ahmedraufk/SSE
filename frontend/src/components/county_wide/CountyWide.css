@@ -82,3 +82,18 @@
         margin: 1em;
     }
 }
+
+@media only screen and (max-width: 575px) {
+    #dropdownColumn {
+        text-align: left;
+    }
+
+    #sortDropdown {
+        margin-top: 0.5em;
+        margin-left: 0.25em;
+    }
+
+    #sortDropdown button {
+        width: 100%;
+    }
+}

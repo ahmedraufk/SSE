@@ -14,6 +14,7 @@ function Location(props) {
   const chartRef = useRef(null);
 
   useEffect(() => {
+    window.scrollTo(0,0);
     let locationId = localStorage.getItem("location_id");
     if (typeof props.location.location_id !== "undefined") {
       localStorage.setItem("location_id", props.location.location_id);
@@ -23,16 +24,16 @@ function Location(props) {
     fetch('/api/locations/' + locationId)
       .then(response => response.json())
       .then(data => {
-        setLocation(data[0]);
+        setLocation(data);
         const map = new mapboxgl.Map({
           container: mapboxElRef.current,
           style: "mapbox://styles/mapbox/streets-v11",
-          center: [data[0].lon, data[0].lat],
+          center: [data.lon, data.lat],
           zoom: 12
         });
         map.addControl(new mapboxgl.NavigationControl());
         new mapboxgl.Marker()
-          .setLngLat([data[0].lon, data[0].lat])
+          .setLngLat([data.lon, data.lat])
           .addTo(map);
       });
 
@@ -89,7 +90,7 @@ function Location(props) {
 
   return (
     <div className="location">
-      <Menu pageLocation="location"/>
+      <Menu pageLocation="location" showDropdown={true}/>
       <Container id="locationContainer">
         <Row>
           <Col lg={6}>
@@ -108,7 +109,7 @@ function Location(props) {
           <Col lg={6}>
             <div className="waitTimesCard">
               <h4><Badge variant="primary">Current Wait Time</Badge></h4>
-              <h1>24 minutes</h1>
+              <h1>35 minutes</h1>
               <p id="lastUpdatedLabel">Last updated: Today at 9:45 AM</p>
             </div>
             <div className="waitTimesCard">

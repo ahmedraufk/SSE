@@ -56,3 +56,22 @@
 #closingAlert {
     margin-top: 2em;
 }
+
+@media only screen and (max-width: 448px) {
+    #map {
+        height: 400px;
+    }
+}
+
+@media only screen and (max-width: 421px) {
+    .waitTimesCard .row .col:nth-child(1) {
+        border-right: none;
+        padding-bottom: 2em;
+        margin-bottom: 2em;
+        border-bottom: 1px solid #e5e5ea;
+    }
+
+    #map {
+        height: 400px;
+    }
+}

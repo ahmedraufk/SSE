@@ -11,4 +11,11 @@ footer {
 
 #footerText {
     color: #383838;
+    margin: 0;
+}
+
+@media only screen and (max-width: 478px) {
+    #footerText {
+        font-size: 12px;
+    }
 }

@@ -13,3 +13,12 @@
     font-weight: bold;
 }
 
+@media only screen and (max-width: 448px) {
+    #headerTextColumn h1 {
+        font-size: 32px;
+    }
+
+    #header img {
+        padding-top: 0;
+    }
+}

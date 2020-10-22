@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Container, Col, Row} from "react-bootstrap";
+import Menu from "../menu/Menu";
 import Search from "../search/Search";
 import headerImage from '../../res/img/sociallyDistantVoters.svg'
 import "./Home.css";
@@ -8,7 +9,8 @@ function Home() {
     const[data,setData] = useState([]);
 
     useEffect(() => {
-        fetch('/api/locations')
+      window.scrollTo(0,0);
+      fetch('/api/locations')
             .then(response => response.json())
             .then(data => {
                 setData(data);
@@ -17,6 +19,7 @@ function Home() {
 
     return (
         <div className="home">
+          <Menu showDropdown={false}/>
             <div id="header">
               <Container>
                 <Row className="d-flex align-items-center">

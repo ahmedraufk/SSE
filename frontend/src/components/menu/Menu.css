@@ -14,6 +14,11 @@
 .nav-link {
     margin-left: 0.5em;
     margin-right: 0.25em;
+    color: white !important;
+}
+
+.nav-link:hover {
+    opacity: 0.5;
 }
 
 #menuDropdownMenu {
@@ -26,7 +31,6 @@
 }
 
 #dropdownMenuFilter {
-    width: 90%;
     margin: 1em;
 }
 
@@ -47,8 +51,9 @@
 }
 
 @media only screen and (max-width: 768px) {
-    .dropdown-menu {
+    #menuDropdownMenu {
         left: 0 !important;
         right: auto;
+        width: 100%;
     }
 }

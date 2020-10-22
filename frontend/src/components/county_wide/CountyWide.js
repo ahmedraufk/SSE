@@ -10,6 +10,7 @@ function CountyWide() {
   const [sortBy, setSortBy] = useState("Alphabetical");
 
   useEffect(() => {
+    window.scrollTo(0,0);
     fetch('/api/locations')
       .then(response => response.json())
       .then(locations => {
@@ -50,13 +51,13 @@ function CountyWide() {
 
   return (
     <div className="countyWide">
-      <Menu pageLocation="countyWide"/>
+      <Menu pageLocation="countyWide" showDropdown={true}/>
       <Container id="countyWideContainer">
         <Row className="d-flex align-items-center">
-          <Col>
+          <Col sm={6}>
             <h1>County Wide</h1>
           </Col>
-          <Col id="dropdownColumn">
+          <Col id="dropdownColumn" sm={6}>
             <Dropdown id="sortDropdown">
               <Dropdown.Toggle variant="success">
                 Sort By: {sortBy}
