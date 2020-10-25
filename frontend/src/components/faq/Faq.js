@@ -23,7 +23,7 @@ function Faq() {
                   <Card.Body>
                       <p>{question.answer}</p>
                       { question.img.length > 0 &&
-                        <img src = { require("../../res/img/" + question.img)}/>
+                        <img class="img-fluid" src = { require("../../res/img/" + question.img)}/>
                       }
 
                   </Card.Body>

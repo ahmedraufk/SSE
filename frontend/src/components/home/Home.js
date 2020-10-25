@@ -5,6 +5,8 @@ import Search from "../search/Search";
 import headerImage from '../../res/img/sociallyDistantVoters.svg'
 import "./Home.css";
 
+//Remove menu for live push
+//Replace search with FAQ page for live push
 function Home() {
     const[data,setData] = useState([]);
 
