@@ -6,7 +6,7 @@ ghpages.publish('../app', {
   src: ['./*.js', './*.json', './res/**', './routes/**', './build/**'],
   message: 'Deployed SSE: ' + uuidv4(),
   branch: 'prod',
-  repo: 'https://github.gatech.edu/mkoohang6/HikerNetWeb.git'
+  repo: 'https://github.gatech.edu/ez4/sse.git'
 }, function(err) {
   console.log(err);
 });
