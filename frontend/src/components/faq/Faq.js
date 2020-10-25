@@ -20,9 +20,16 @@ function Faq() {
                   </Accordion.Toggle>
                 </Card.Header>
                 <Accordion.Collapse eventKey={i+1}>
-                  <Card.Body>{question.answer}</Card.Body>
+                  <Card.Body>
+                      <p>{question.answer}</p>
+                      { question.img.length > 0 &&
+                        <img src = { require("../../res/img/" + question.img)}/>
+                      }
+
+                  </Card.Body>
                 </Accordion.Collapse>
               </Card>
+
             ))
           }
         </Accordion>
