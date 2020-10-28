@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "04cbc36819df9c9cfecad1032ed7a528",
+    "revision": "4329f960f2b186e43ea645c0e48b9df3",
     "url": "/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/css/2.d9ad5f5c.chunk.css"
   },
   {
-    "revision": "0a8aef0841002edb4273",
+    "revision": "5e600eb0ff469f53ed9c",
     "url": "/static/css/main.f44bcbc4.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/2.20f297db.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "0a8aef0841002edb4273",
-    "url": "/static/js/main.772658b3.chunk.js"
+    "revision": "5e600eb0ff469f53ed9c",
+    "url": "/static/js/main.2ba96b9d.chunk.js"
   },
   {
     "revision": "2747b914e9a60db2276f",
@@ -32,7 +32,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/sociallyDistantVoters.ff8e6cd3.svg"
   },
   {
-    "revision": "71b70af86850b920ae9ff61b901ae6a0",
-    "url": "/static/media/waitPoster.71b70af8.png"
+    "revision": "f9ab870fa66375f256d8cf877bc68ff1",
+    "url": "/static/media/waitPoster.f9ab870f.png"
   }
 ]);
