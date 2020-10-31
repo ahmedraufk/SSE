@@ -18,6 +18,7 @@ router.get('/locations', (req, res) => {
     });
 });
 
+
 // Single location
 router.get('/locations/:id', (req, res) => {
   db.query(queries.select_location + req.params.id)
@@ -29,5 +30,19 @@ router.get('/locations/:id', (req, res) => {
       throw err;
     });
 });
+
+
+router.get('/reports', (req, res) => {
+    db.query(queries.select_reports)
+        .then(rows => Promise.all(map(rows, (report) => utils.getTimes(report))))
+        .then(reports => res.status(200).json(reports))
+        .catch(err => {
+            winston.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+            res.status(500).json([{"error": err}]);
+            throw err;
+        });
+});
+
+
 
 module.exports = router;
