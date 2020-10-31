@@ -12,5 +12,5 @@
   "insert_accept" : "insert into reports (timestamp, original_time, parsed_time, location_id) values (?, ?, ?, ?)",
   "insert_phone" : "insert into numbers (number) values (?)",
   "insert_time": "insert into times (timestamp, estimated_time, location_id) values (?, ?, ?)",
-  "select_reports": "select * from reports"
+  "select_reports": "select * from reports where location_id = ?"
 }

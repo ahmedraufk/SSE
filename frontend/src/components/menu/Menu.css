@@ -11,13 +11,13 @@
     margin-right: 0.4em;
 }
 
-.nav-link {
+.menu-link {
     margin-left: 0.5em;
     margin-right: 0.25em;
     color: white !important;
 }
 
-.nav-link:hover {
+.menu-link:hover {
     opacity: 0.5;
 }
 

@@ -33,14 +33,14 @@ router.get('/locations/:id', (req, res) => {
 
 
 router.get('/reports', (req, res) => {
-    db.query(queries.select_reports)
-        .then(rows => Promise.all(map(rows, (report) => utils.getTimes(report))))
-        .then(reports => res.status(200).json(reports))
-        .catch(err => {
-            winston.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
-            res.status(500).json([{"error": err}]);
-            throw err;
-        });
+  db.query(queries.select_locations)
+    .then(rows => Promise.all(map(rows, (location) => utils.getReports(location))))
+    .then(data => res.status(200).json(data))
+    .catch(err => {
+      winston.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+      res.status(500).json([{"error": err}]);
+      throw err;
+    });
 });
 
 

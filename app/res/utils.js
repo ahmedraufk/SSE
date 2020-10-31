@@ -117,6 +117,13 @@ module.exports = {
           })
       });
   },
+  getReports: (location) => {
+    return db.query(queries.select_reports, location.id)
+      .then(reports => ({
+        ...location,
+        reports
+      }))
+  },
   createSurveyURL: (location, minutes) => {
     location = location.replace(/ /g, "%20")
     const url = "https://gatech.co1.qualtrics.com/jfe/form/SV_eG8DQvEigMwRihT" + "?location=" + location + "&waitTime=" + String(minutes);
