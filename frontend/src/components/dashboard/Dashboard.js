@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Table, Nav, Col, Row, Button} from 'react-bootstrap';
+import {Table, Nav, Col, Row} from 'react-bootstrap';
 import Menu from "../menu/Menu";
 import './Dashboard.css';
 
@@ -14,19 +14,28 @@ function Dashboard() {
       .then(data => {
         setReportData(data);
       });
-  }, [reportData]);
+  }, []);
+
+  function loadReports(id) {
+    fetch('/api/reports')
+      .then(response => response.json())
+      .then(data => {
+        setReportData(data);
+        setSelectedLocation(id - 1);
+      });
+  }
 
   return (
     <div className="dashboard">
       <Menu showDropdown={true}/>
       <div className="container-fluid">
         <Row>
-          <Col className="col-md-3 d-none d-lg-block bg-light sidebar">
+          <Col className="col-md-3 d-none d-md-block bg-light sidebar">
             <div className="sidebar-sticky">
               <Nav className="flex-column">
                 <h5 className="d-flex px-3 mt-2 justify-content-start">Locations</h5>
                 { reportData.map((location, i) => (
-                    <Nav.Link className="dashLocationLink" key={location.id} tabIndex={i + 1} onClick={() => setSelectedLocation(location.id - 1)}>
+                    <Nav.Link className="dashLocationLink" key={location.id} tabIndex={i + 1} onClick={() => loadReports(location.id)}>
                       {location.name}
                     </Nav.Link>
                   ))
@@ -34,7 +43,7 @@ function Dashboard() {
               </Nav>
             </div>
           </Col>
-          <Col className="col-lg-9 ml-sm-auto col-lg-9 pt-3 px-4">
+          <Col className="col-md-9 ml-sm-auto col-md-9 pt-3 px-4">
             { reportData.length > 0
               ? <h4 className="mt-2 mb-4">{reportData[selectedLocation].name}</h4>
               : <h4 className="mt-2 mb-4">Select a location.</h4>
