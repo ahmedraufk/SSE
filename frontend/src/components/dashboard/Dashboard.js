@@ -40,6 +40,8 @@ function Dashboard() {
             setReportData(data);
           }
         });
+    } else {
+      setLoginFailed(true);
     }
   }
 
@@ -154,7 +156,7 @@ function Dashboard() {
               { loginFailed &&
                 <Alert variant={"danger"}>Your username or password is incorrect.</Alert>
               }
-              <Button variant="success" type="submit" onClick={() => login()}>
+              <Button variant="success" onClick={() => login()}>
                 Login
               </Button>
             </Form>
