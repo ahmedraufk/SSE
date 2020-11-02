@@ -1,15 +1,18 @@
 {
-  "select_locations": "select * from locations order by name asc",
-  "select_location": "select * from locations where id = ",
+  "select_locations": "select id, name, address, lat, lon from locations order by name asc",
+  "select_location": "select id, name, address, lat, lon from locations where id = ",
   "select_time": "select estimated_time from times where timestamp = (select max(timestamp) from times where location_id = ",
   "select_time_count": "select count(*) from times where location_id = ",
   "select_lowest_time": "select min(estimated_time) from times where location_id = ",
   "select_highest_time": "select max(estimated_time) from times where location_id = ",
   "select_location_info" : "select id, name from locations where phone = ",
   "select_phone_id" : "select * from numbers where number = ",
+  "select_user": "select * from users where username = ?",
+  "select_wait_times": "select * from reports where location_id = ? and parsed_time is not null order by timestamp desc limit 3",
+  "select_reports": "select * from reports where location_id = ?",
 
-  "insert_reject" : "insert into reports (timestamp, original_time, location_id) values (?, ?, ?)",
-  "insert_accept" : "insert into reports (timestamp, original_time, parsed_time, location_id) values (?, ?, ?, ?)",
+  "insert_reject" : "insert into reports (timestamp, original_time, observer, location_id) values (?, ?, ?, ?)",
+  "insert_accept" : "insert into reports (timestamp, original_time, parsed_time, observer, location_id) values (?, ?, ?, ?, ?)",
   "insert_phone" : "insert into numbers (number) values (?)",
-  "insert_time": "insert into times (timestamp, estimated_time, location_id) values (?, ?, ?)"
+  "insert_wait_time": "insert into times (timestamp, estimated_time, location_id) values (?, ?, ?)"
 }

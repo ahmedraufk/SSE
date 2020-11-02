@@ -5,6 +5,7 @@ import CountyWide from "../county_wide/CountyWide";
 import Location from "../location/Location";
 import Faq from "../faq/Faq";
 import Footer from "../footer/Footer";
+import Dashboard from "../dashboard/Dashboard";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route exact path='/countyWide' component={CountyWide}/>
         <Route exact path='/faq' component={Faq}/>
         <Route exact path='/location' component={Location}/>
+        <Route exact path='/dashboard' component={Dashboard}/>
         <Route exact path='/error' component={Error}/>
       </Switch>
       <Footer/>
