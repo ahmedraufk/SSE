@@ -8,7 +8,7 @@ const router = express.Router();
 const utils = require('../res/utils');
 const winston = require('../res/winston');
 
-router.post('/sms', function(req, res) {
+router.post('/sms', function(req, res, err) {
   const twiml = new MessagingResponse();
   const input = req.body.Body;
   const toNum = req.body.To;
@@ -19,25 +19,27 @@ router.post('/sms', function(req, res) {
 
   utils.parseTime(input)
     .then(minutes => {
-      if (!minutes) {
-        return {"success": false}
-      } else {
-        return {"success": true, "minutes": minutes}
-      }
+      return {"success": true, "minutes": minutes}
+    })
+    .catch(() => {
+      return {"success": false}
     })
     .then(result => {
       return db.query(queries.select_phone_id + `'${hashNum}'`)
         .then(phoneResult => {
           if (phoneResult.length > 0 && phoneResult[0].whitelisted === 1) {
-            result.phoneId = phoneResult[0].id
+            result.phoneId = phoneResult[0].id;
+            result.observer = 1;
             return result
           } else if (phoneResult.length > 0) {
-            result.phoneId = -1
+            result.phoneId = -1;
+            result.observer = 0;
             return result
           } else if (result.success) {
             return db.query(queries.insert_phone, [hashNum])
               .then(newPhoneResult => {
-                result.phoneId = newPhoneResult.insertId
+                result.phoneId = newPhoneResult.insertId;
+                result.observer = 0;
                 return result
               });
           } else {
@@ -54,11 +56,11 @@ router.post('/sms', function(req, res) {
         });
     })
     .then(result => {
-      if (!result.minutes) {
+      if (!result.success) {
         twiml.message("Sorry, we couldn\'t understand what you sent. Please send your wait time in the following format: \"15 min\"");
         res.writeHead(200, {'Content-Type': 'text/xml'});
         res.end(twiml.toString());
-        const values = [new Date(), input, result.locationId];
+        const values = [new Date(), input, result.observer, result.locationId];
         return db.query(queries.insert_reject, values);
       } else if (result.phoneId === -1) {
         twiml.message("We've already received your wait time report. Thank you for participating!");
@@ -72,9 +74,9 @@ router.post('/sms', function(req, res) {
               "location's wait time. We'd greatly appreciate it if you could take this survey: " + survey);
             res.writeHead(200, {'Content-Type': 'text/xml'});
             res.end(twiml.toString());
-            const values = [new Date(), input, result.minutes, result.locationId];
+            const values = [new Date(), input, result.minutes, result.observer, result.locationId];
             return db.query(queries.insert_accept, values);
-          });
+          })
       }
     })
     .catch(function (err) {
