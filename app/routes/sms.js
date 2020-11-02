@@ -67,16 +67,18 @@ router.post('/sms', function(req, res, err) {
         res.writeHead(200, {'Content-Type': 'text/xml'});
         res.end(twiml.toString());
       } else {
-        utils.calcWaitTime(result.minutes, result.locationId)
+        const values = [new Date(), input, result.minutes, result.observer, result.locationId];
+        db.query(queries.insert_accept, values)
           .then(() => {
-            const survey = utils.createSurveyURL(result.locationName, result.minutes);
-            twiml.message("Thank you for sharing! Your message will help inform others about this " +
-              "location's wait time. We'd greatly appreciate it if you could take this survey: " + survey);
-            res.writeHead(200, {'Content-Type': 'text/xml'});
-            res.end(twiml.toString());
-            const values = [new Date(), input, result.minutes, result.observer, result.locationId];
-            return db.query(queries.insert_accept, values);
-          })
+            utils.calcWaitTime(result.locationId)
+              .then(() => {
+                const survey = utils.createSurveyURL(result.locationName, result.minutes);
+                twiml.message("Thank you for sharing! Your message will help inform others about this " +
+                  "location's wait time. We'd greatly appreciate it if you could take this survey: " + survey);
+                res.writeHead(200, {'Content-Type': 'text/xml'});
+                res.end(twiml.toString());
+              })
+          });
       }
     })
     .catch(function (err) {
