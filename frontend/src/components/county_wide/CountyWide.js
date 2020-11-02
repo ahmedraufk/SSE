@@ -40,13 +40,13 @@ function CountyWide() {
         setSortBy("Alphabetical");
         break;
       case "Lowest wait time":
-      //   sorted = filteredLocations.sort((a, b) => (a.wait_time > b.wait_time) ? 1 : -1);
-      //   setFilteredLocations(sorted);
+         sorted = filteredLocations.sort((a, b) => (a.wait_time > b.wait_time) ? 1 : -1);
+         setFilteredLocations(sorted);
         setSortBy("Lowest wait time");
         break;
       case "Highest wait time":
-        //   sorted = filteredLocations.sort((a, b) => (a.wait_time < b.wait_time) ? 1 : -1);
-        //   setFilteredLocations(sorted);
+          sorted = filteredLocations.sort((a, b) => (a.wait_time < b.wait_time) ? 1 : -1);
+          setFilteredLocations(sorted);
         setSortBy("Highest wait time");
         break;
       default:
