@@ -136,23 +136,23 @@ module.exports = {
       });
   },
   getTimes: (location) => {
-    return db.query(queries.select_lowest_time + location.id)
+    return db.query(queries.select_lowest_time, [location.id, location.id])
       .then(lowestTime => {
-        location.lowestTime = lowestTime[0]['min(estimated_time)']
+        location.lowestTime = lowestTime[0]
         return location
       })
       .then(location => {
-        return db.query(queries.select_highest_time + location.id)
+        return db.query(queries.select_highest_time, [location.id, location.id])
           .then(highestTime => {
-            location.highestTime = highestTime[0]['max(estimated_time)']
+            location.highestTime = highestTime[0]
             return location
           })
       })
       .then(location => {
-        return db.query(queries.select_time + location.id + ")")
+        return db.query(queries.select_current_time, location.id)
           .then(currentTime => {
             if (currentTime.length > 0) {
-              location.currentTime = currentTime[0]['estimated_time']
+              location.currentTime = currentTime[0]
             } else {
               location.currentTime = null
             }
