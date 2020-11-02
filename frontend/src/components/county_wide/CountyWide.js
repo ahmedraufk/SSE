@@ -44,6 +44,11 @@ function CountyWide() {
       //   setFilteredLocations(sorted);
         setSortBy("Lowest wait time");
         break;
+      case "Highest wait time":
+        //   sorted = filteredLocations.sort((a, b) => (a.wait_time < b.wait_time) ? 1 : -1);
+        //   setFilteredLocations(sorted);
+        setSortBy("Highest wait time");
+        break;
       default:
         break;
     }
@@ -65,6 +70,8 @@ function CountyWide() {
               <Dropdown.Menu>
                 <Dropdown.Item onClick={() => sortCards("Alphabetical")}>Alphabetical</Dropdown.Item>
                 <Dropdown.Item onClick={() => sortCards("Lowest wait time")}>Lowest wait time</Dropdown.Item>
+                <Dropdown.Item onClick={() => sortCards("Highest wait time")}>Highest wait time</Dropdown.Item>
+
               </Dropdown.Menu>
             </Dropdown>
           </Col>
