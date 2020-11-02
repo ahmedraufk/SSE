@@ -52,7 +52,6 @@ function Menu(props) {
           <Nav.Link href="#/" className="menu-link"><i className="fas fa-home"/>Home</Nav.Link>
           <Nav.Link href="#/countyWide" className="menu-link"><i className="far fa-building"/>County Wide</Nav.Link>
           <Nav.Link href="#/faq" className="menu-link"><i className="far fa-question-circle"/>FAQs</Nav.Link>
-          <Nav.Link href="#/dashboard" className="menu-link"><i className="far fa-chart-bar"/>Dashboard</Nav.Link>
         </Nav>
         { props.showDropdown &&
         <Dropdown>
