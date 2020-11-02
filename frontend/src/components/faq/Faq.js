@@ -13,7 +13,7 @@ function Faq() {
         <Accordion id="faqAccordion" defaultActiveKey="0">
             <Card key={1}>
                 <Card.Header>
-                    <Accordion.Toggle as={Button} variant="link" eventKey={1}>
+                    <Accordion.Toggle as={Button} variant="link" eventKey={1} className={"text-left"}>
                        What is the purpose of this site?
                     </Accordion.Toggle>
                 </Card.Header>
@@ -26,7 +26,7 @@ function Faq() {
             </Card>
             <Card key={2}>
                 <Card.Header>
-                    <Accordion.Toggle as={Button} variant="link" eventKey={2}>
+                    <Accordion.Toggle as={Button} variant="link" eventKey={2} className={"text-left"}>
                         How can I use this site?
                     </Accordion.Toggle>
                 </Card.Header>
@@ -39,7 +39,7 @@ function Faq() {
             </Card>
             <Card key={3}>
                 <Card.Header>
-                    <Accordion.Toggle as={Button} variant="link" eventKey={3}>
+                    <Accordion.Toggle as={Button} variant="link" eventKey={3} className={"text-left"}>
                         How do I report a wait time?
                     </Accordion.Toggle>
                 </Card.Header>
@@ -54,7 +54,7 @@ function Faq() {
             </Card>
             <Card key={4}>
                 <Card.Header>
-                    <Accordion.Toggle as={Button} variant="link" eventKey={4}>
+                    <Accordion.Toggle as={Button} variant="link" eventKey={4} className={"text-left"}>
                         Who is supporting this project?
                     </Accordion.Toggle>
                 </Card.Header>
@@ -69,7 +69,7 @@ function Faq() {
             </Card>
             <Card key={5}>
                 <Card.Header>
-                    <Accordion.Toggle as={Button} variant="link" eventKey={5}>
+                    <Accordion.Toggle as={Button} variant="link" eventKey={5} className={"text-left"}>
                         Why is this project only for Fulton County?
                     </Accordion.Toggle>
                 </Card.Header>
@@ -85,7 +85,7 @@ function Faq() {
             </Card>
             <Card key={6}>
                 <Card.Header>
-                    <Accordion.Toggle as={Button} variant="link" eventKey={6}>
+                    <Accordion.Toggle as={Button} variant="link" eventKey={6} className={"text-left"}>
                         How do you estimate the wait time?
                     </Accordion.Toggle>
                 </Card.Header>
@@ -98,7 +98,7 @@ function Faq() {
             </Card>
             <Card key={7}>
                 <Card.Header>
-                    <Accordion.Toggle as={Button} variant="link" eventKey={7}>
+                    <Accordion.Toggle as={Button} variant="link" eventKey={7} className={"text-left"}>
                         How do you protect my privacy?
                     </Accordion.Toggle>
                 </Card.Header>
@@ -112,7 +112,7 @@ function Faq() {
             </Card>
             <Card key={8}>
                 <Card.Header>
-                    <Accordion.Toggle as={Button} variant="link" eventKey={8}>
+                    <Accordion.Toggle as={Button} variant="link" eventKey={8} className={"text-left"}>
                         What if I have a question that is not answered on this FAQ?
                     </Accordion.Toggle>
                 </Card.Header>
@@ -121,6 +121,25 @@ function Faq() {
                         <p>
                             If you have another question or feedback about this site, please email us at gbarkhuff3@gatech.edu.
                         </p>
+                    </Card.Body>
+                </Accordion.Collapse>
+            </Card>
+            <Card id = "faqCard" key={9}>
+                <Card.Header id = "faqCard">
+                    <Accordion.Toggle as={Button} variant="link" eventKey={9} className={"text-left"}>
+                        What is the projected turnout on Election Day?
+                    </Accordion.Toggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey={9}>
+                    <Card.Body>
+                        <p>
+                            Our research team at Georgia Tech ran simulations to make an educated guess about how many people will turn out to vote at each polling location. What we see is that turnout is likely to be high on November 3rd, so if you are able, we recommend you vote early!
+                            Take a look at the data for each polling location by downloading the PDF below.
+
+
+                        </p>
+                        <Button href={"/pdf/ForecastedTurnout.pdf"} variant="primary" target={"_blank"}>Download</Button>{' '}
+
                     </Card.Body>
                 </Accordion.Collapse>
             </Card>
