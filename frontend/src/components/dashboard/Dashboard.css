@@ -31,3 +31,12 @@
   outline: none !important;
   box-shadow: none;
 }
+
+#dashboard-login {
+  margin-top: 3em;
+  max-width: 500px;
+}
+
+.dashboard-location-name {
+  margin: 0;
+}
