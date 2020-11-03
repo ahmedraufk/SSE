@@ -4,14 +4,14 @@ import Menu from "../menu/Menu";
 import './Dashboard.css';
 
 function Dashboard() {
-
   const [username, setUsername] = useState(localStorage.getItem("username"));
   const [password, setPassword] = useState(localStorage.getItem("password"));
   const [showDashboard, setShowDashboard] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(0);
   const [reportData, setReportData] = useState([]);
+  const [locationData, setLocationData] = useState(reportData[selectedLocation]);
   const [loginFailed, setLoginFailed] = useState(false);
-  const loginData = {"username": username, "password": password}
+  const loginData = {"username": username, "password": password};
 
   useEffect(() => {
     if (username != null && password != null) {
@@ -83,8 +83,8 @@ function Dashboard() {
     })
       .then(response => response.json())
       .then(data => {
-        setReportData(data);
         setSelectedLocation(id - 1);
+        setLocationData(data[id-1]);
       });
   }
 
@@ -108,36 +108,44 @@ function Dashboard() {
               </div>
             </Col>
             <Col className="col-md-9 ml-sm-auto col-md-9 pt-3 px-4">
-              { reportData.length > 0
-                ? <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
-                    <h4 className="dashboard-location-name">{reportData[selectedLocation].name}</h4>
+              { locationData !== null && typeof locationData !== "undefined"
+                ? <div>
+                    <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
+                      <h4 className="dashboard-location-name">{locationData.name}</h4>
+                      <Button variant="danger" type="submit" onClick={() => logout()}>
+                        Logout
+                      </Button>
+                    </div>
+                    { locationData.reports.length > 0
+                      ? <Table striped bordered hover size="sm" id="reportsTable">
+                          <thead>
+                          <tr>
+                            <th>Time</th>
+                            <th>Parsed Time</th>
+                            <th>Original Time</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          { locationData.reports.map((report, i) => (
+                              <tr key={report.id} tabIndex={i + 1}>
+                                <td>{new Date(report.timestamp).toLocaleTimeString()}</td>
+                                <td>{report.parsed_time}</td>
+                                <td>{report.original_time}</td>
+                              </tr>
+                            ))
+                          }
+                          </tbody>
+                        </Table>
+                      : <Alert variant={"secondary"}>No reports for this location.</Alert>
+                    }
+                      </div>
+                : <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
+                    <h4 className="dashboard-location-name">Select a location.</h4>
                     <Button variant="danger" type="submit" onClick={() => logout()}>
                       Logout
                     </Button>
                   </div>
-                : <h4 className="mt-2 mb-4">Select a location.</h4>
               }
-              <Table striped bordered hover size="sm" id="reportsTable">
-                <thead>
-                  <tr>
-                    <th>Time</th>
-                    <th>Parsed Time</th>
-                    <th>Original Time</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  { reportData.length > 0
-                    ? reportData[selectedLocation].reports.map((report, i) => (
-                      <tr key={report.id} tabIndex={i+1}>
-                        <td>{new Date(report.timestamp).toLocaleTimeString()}</td>
-                        <td>{report.parsed_time}</td>
-                        <td>{report.original_time}</td>
-                      </tr>
-                    ))
-                    : <tr><td>No selection made</td></tr>
-                  }
-                </tbody>
-              </Table>
               </Col>
             </Row>
           </div>

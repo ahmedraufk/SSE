@@ -2,7 +2,6 @@ import React, {useState, useRef, useEffect} from 'react';
 import {Badge, Button, Col, Container, Row} from "react-bootstrap";
 import Menu from "../menu/Menu";
 import mapboxgl from 'mapbox-gl';
-import Chart from "chart.js";
 import gmapsLogo from '../../res/img/googleMaps.png';
 import './Location.css';
 
@@ -10,8 +9,12 @@ mapboxgl.accessToken = "pk.eyJ1IjoibWljaGFlbC1rMTAxIiwiYSI6ImNqajBkMXNmbDBnbzAza
 
 function Location(props) {
   const [location, setLocation] = useState({});
+  const [dataAge, setDataAge] = useState(null);
+  const [lowestTime, setLowestTime] = useState(null);
+  const [highestTime, setHighestTime] = useState(null);
+  const [currentTime, setCurrentTime] = useState(null);
   const mapboxElRef = useRef(null);
-  const chartRef = useRef(null);
+  const bucketMap = ["15-30 mins", "30 mins - 1 hr", "1-2 hrs", "2-4 hrs", "4+ hrs"]
 
   useEffect(() => {
     window.scrollTo(0,0);
@@ -25,6 +28,12 @@ function Location(props) {
       .then(response => response.json())
       .then(data => {
         setLocation(data);
+        if (data.currentTime !== null) {
+          setDataAge(new Date(data.currentTime.timestamp).getTime());
+        }
+        setLowestTime(data.lowestTime);
+        setHighestTime(data.highestTime);
+        setCurrentTime(data.currentTime);
         const map = new mapboxgl.Map({
           container: mapboxElRef.current,
           style: "mapbox://styles/mapbox/streets-v11",
@@ -36,56 +45,6 @@ function Location(props) {
           .setLngLat([data.lon, data.lat])
           .addTo(map);
       });
-
-    const myChartRef = chartRef.current.getContext("2d");
-    new Chart(myChartRef, {
-      type: 'line',
-      data: {
-        labels: ['8-9 AM', '9-10 AM', '10-11 AM', '11-12 PM', '12-1 PM', '1-2 PM', '2-3 PM', '3-4 PM', '4-5 PM', '5-6 PM', '6-7 PM', '7-8 PM'],
-        datasets: [{
-          label: 'Today\'s Wait Times',
-          data: [12, 19, 3, 5, 2, 3, 9, 10, 11, 12, 13, 14],
-          backgroundColor: [
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)'
-          ],
-          borderColor: [
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });
   }, [props.location.location_id]);
 
   return (
@@ -93,9 +52,13 @@ function Location(props) {
       <Menu pageLocation="location" showDropdown={true}/>
       <Container id="locationContainer">
         <Row>
-          <Col lg={6}>
+          <Col lg={12}>
             <h2 id="locationName">{location.name}</h2>
             <h6 id="locationAddress">{location.address}</h6>
+          </Col>
+        </Row>
+        <Row>
+          <Col lg={6}>
             <div id="map" ref={mapboxElRef}/>
             <Button size="lg"
                     id="directionsButton"
@@ -107,30 +70,48 @@ function Location(props) {
             </Button>
           </Col>
           <Col lg={6}>
-            <div className="waitTimesCard">
-              <h4><Badge variant="primary">Current Wait Time</Badge></h4>
-              <h1>35 minutes</h1>
-              <p id="lastUpdatedLabel">Last updated: Today at 9:45 AM</p>
-            </div>
+            { new Date().getTime() - dataAge < (30 * 60 * 1000) && currentTime != null
+              ? <div className="waitTimesCard">
+                  <h4><Badge variant="primary">Current Wait Time</Badge></h4>
+                  <h1>{bucketMap[currentTime.estimated_time-1]}</h1>
+                  <p id="lastUpdatedLabel">Last updated: Today at {new Date(dataAge).toLocaleTimeString(navigator.language, {hour: 'numeric', minute:'numeric'})}</p>
+                </div>
+              : <div className="waitTimesCard">
+                <h4><Badge variant="primary">Current Wait Time</Badge></h4>
+                <h1>Not enough data.</h1>
+                  <p id="lastUpdatedLabel">More reports have to be made at this location to provide an accurate wait time.</p>
+                </div>
+            }
             <div className="waitTimesCard">
               <Row>
                 <Col>
                   <h4><Badge variant="success">Lowest Today</Badge></h4>
-                  <div>
-                    <h3>30 minutes</h3>
-                    <p>at 9:30 AM</p>
-                  </div>
+                  { lowestTime !== null && typeof lowestTime !== "undefined"
+                    ? <div>
+                        <h3>{bucketMap[lowestTime.estimated_time-1]}</h3>
+                        <p>at {new Date(lowestTime.timestamp).toLocaleTimeString(navigator.language, {hour: 'numeric', minute:'numeric'})}</p>
+                      </div>
+                    : <div>
+                        <h3>No reports.</h3>
+                        <p>No reports have been made yet.</p>
+                      </div>
+                  }
                 </Col>
                 <Col>
                   <h4><Badge variant="danger">Highest Today</Badge></h4>
-                  <div>
-                    <h3>45 minutes</h3>
-                    <p>at 8:15 AM</p>
-                  </div>
+                  { highestTime !== null && typeof highestTime !== "undefined"
+                    ? <div>
+                      <h3>{bucketMap[highestTime.estimated_time-1]}</h3>
+                      <p>at {new Date(highestTime.timestamp).toLocaleTimeString(navigator.language, {hour: 'numeric', minute:'numeric'})}</p>
+                    </div>
+                    : <div>
+                      <h3>No reports.</h3>
+                      <p>No reports have been made yet.</p>
+                    </div>
+                  }
                 </Col>
               </Row>
             </div>
-            <canvas id="myChart" ref={chartRef}/>
           </Col>
         </Row>
       </Container>
