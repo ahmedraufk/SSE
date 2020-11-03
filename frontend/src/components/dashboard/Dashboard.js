@@ -17,7 +17,7 @@ function Dashboard() {
     if (username != null && password != null) {
       login()
     }
-  });
+  }, []);
 
   function login() {
     if (username !== null && password !== null) {
