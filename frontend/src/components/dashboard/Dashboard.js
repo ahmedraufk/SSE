@@ -11,13 +11,13 @@ function Dashboard() {
   const [selectedLocation, setSelectedLocation] = useState(0);
   const [reportData, setReportData] = useState([]);
   const [loginFailed, setLoginFailed] = useState(false);
-  const loginData = {"username": username, "password": password}
+  const loginData = {"username": username, "password": password};
 
   useEffect(() => {
     if (username != null && password != null) {
       login()
     }
-  }, []);
+  });
 
   function login() {
     if (username !== null && password !== null) {

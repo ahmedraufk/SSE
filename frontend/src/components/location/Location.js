@@ -2,7 +2,6 @@ import React, {useState, useRef, useEffect} from 'react';
 import {Badge, Button, Col, Container, Row} from "react-bootstrap";
 import Menu from "../menu/Menu";
 import mapboxgl from 'mapbox-gl';
-import Chart from "chart.js";
 import gmapsLogo from '../../res/img/googleMaps.png';
 import './Location.css';
 
@@ -15,7 +14,6 @@ function Location(props) {
   const [highestTime, setHighestTime] = useState(null);
   const [currentTime, setCurrentTime] = useState(null);
   const mapboxElRef = useRef(null);
-  const chartRef = useRef(null);
   const bucketMap = ["15-30 mins", "30 mins - 1 hr", "1-2 hrs", "2-4 hrs", "4+ hrs"]
 
   useEffect(() => {
@@ -30,10 +28,8 @@ function Location(props) {
       .then(response => response.json())
       .then(data => {
         setLocation(data);
-        console.log(data)
         if (data.currentTime !== null) {
           setDataAge(new Date(data.currentTime.timestamp).getTime());
-          console.log(new Date().getTime() - dataAge < (30 * 60 * 1000))
         }
         setLowestTime(data.lowestTime);
         setHighestTime(data.highestTime);
@@ -49,56 +45,6 @@ function Location(props) {
           .setLngLat([data.lon, data.lat])
           .addTo(map);
       });
-
-    const myChartRef = chartRef.current.getContext("2d");
-    new Chart(myChartRef, {
-      type: 'line',
-      data: {
-        labels: ['8-9 AM', '9-10 AM', '10-11 AM', '11-12 PM', '12-1 PM', '1-2 PM', '2-3 PM', '3-4 PM', '4-5 PM', '5-6 PM', '6-7 PM', '7-8 PM'],
-        datasets: [{
-          label: 'Today\'s Wait Times',
-          data: [12, 19, 3, 5, 2, 3, 9, 10, 11, 12, 13, 14],
-          backgroundColor: [
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)',
-            'rgba(21, 75, 125, 0.3)'
-          ],
-          borderColor: [
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)',
-            'rgba(21, 75, 125, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });
   }, [props.location.location_id]);
 
   return (
@@ -166,7 +112,6 @@ function Location(props) {
                 </Col>
               </Row>
             </div>
-            <canvas id="myChart" ref={chartRef}/>
           </Col>
         </Row>
       </Container>
