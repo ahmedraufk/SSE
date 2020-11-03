@@ -83,8 +83,12 @@ function Dashboard() {
     })
       .then(response => response.json())
       .then(data => {
-        setSelectedLocation(id - 1);
-        setLocationData(data[id-1]);
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].id === id) {
+            setSelectedLocation(i);
+            setLocationData(data[i]);
+          }
+        }
       });
   }
 
@@ -95,17 +99,15 @@ function Dashboard() {
         ? <div className="container-fluid">
             <Row>
             <Col className="col-md-3 d-none d-md-block bg-light sidebar">
-              <div className="sidebar-sticky">
-                <Nav className="flex-column">
-                  <h5 className="d-flex px-3 mt-2 justify-content-start">Locations</h5>
-                  { reportData.map((location, i) => (
-                    <Nav.Link className="dashLocationLink" key={location.id} tabIndex={i + 1} onClick={() => loadReports(location.id)}>
-                      {location.name}
-                    </Nav.Link>
-                  ))
-                  }
-                </Nav>
-              </div>
+              <Nav className="flex-column">
+                <h5 className="d-flex px-3 mt-4 justify-content-start">Locations</h5>
+                { reportData.map((location, i) => (
+                  <Nav.Link className="dashLocationLink" key={location.id} tabIndex={i + 1} onClick={() => loadReports(location.id)}>
+                    {location.name}
+                  </Nav.Link>
+                ))
+                }
+              </Nav>
             </Col>
             <Col className="col-md-9 ml-sm-auto col-md-9 pt-3 px-4">
               { locationData !== null && typeof locationData !== "undefined"

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
-import {Dropdown, Container, Row, Col, Form} from "react-bootstrap";
+import {Dropdown, Container, Row, Col, Form, Alert} from "react-bootstrap";
 import Menu from "../menu/Menu";
 import './CountyWide.css';
 
@@ -8,6 +8,7 @@ function CountyWide() {
   const [locations, setLocations] = useState([]);
   const [filteredLocations, setFilteredLocations] = useState([]);
   const [sortBy, setSortBy] = useState("Alphabetical");
+  const bucketMap = ["0-15 mins", "15-30 mins", "30 mins - 1 hr", "1-2 hrs", "2-4 hrs", "4+ hrs"]
 
   useEffect(() => {
     window.scrollTo(0,0);
@@ -39,15 +40,23 @@ function CountyWide() {
         setFilteredLocations(sorted);
         setSortBy("Alphabetical");
         break;
-      case "Lowest wait time":
-         sorted = filteredLocations.sort((a, b) => (a.wait_time > b.wait_time) ? 1 : -1);
-         setFilteredLocations(sorted);
-        setSortBy("Lowest wait time");
-        break;
       case "Highest wait time":
-          sorted = filteredLocations.sort((a, b) => (a.wait_time < b.wait_time) ? 1 : -1);
-          setFilteredLocations(sorted);
+        sorted = filteredLocations.sort((a, b) => {
+          if (a.currentTime === null) { return 1 }
+          if (b.currentTime === null) { return -1 }
+          return (a.currentTime.estimated_time < b.currentTime.estimated_time) ? 1 : -1
+        });
+        setFilteredLocations(sorted);
         setSortBy("Highest wait time");
+        break;
+      case "Lowest wait time":
+        sorted = filteredLocations.sort((a, b) => {
+          if (a.currentTime === null) { return 1 }
+          if (b.currentTime === null) { return -1 }
+          return (a.currentTime.estimated_time > b.currentTime.estimated_time) ? 1 : -1
+        });
+        setFilteredLocations(sorted);
+        setSortBy("Lowest wait time");
         break;
       default:
         break;
@@ -92,10 +101,14 @@ function CountyWide() {
                 }} key={location.id} className="countyWideCard" >
                   <h6 id="nameLabel">{location.name}</h6>
                   <h6 id="addressLabel">{location.address}</h6>
-                  <div id="timeLabelContainer">
-                    <h1 id="minutes">24</h1>
-                    <h4 id="minutesLabel">minutes</h4>
-                  </div>
+                  { location.currentTime === null
+                    ? <Alert variant={"secondary"} id="noreports">No reports.</Alert>
+                    : new Date().getTime() - new Date(location.currentTime.timestamp).getTime() < (30 * 60 * 1000)
+                      ? <div id="timeLabelContainer">
+                          <h4 id="minutes">{bucketMap[location.currentTime.estimated_time-1]}</h4>
+                        </div>
+                      : <Alert variant={"secondary"} id="noreports">No reports.</Alert>
+                  }
                 </Link>
               ))
             : <h5 id="countyWideNoLocationsFound">No locations found.</h5>
