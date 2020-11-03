@@ -58,64 +58,114 @@ module.exports = {
       });
 
   },
-  calcWaitTime: (minutes, locationId) => {
-    return db.query(queries.select_time + locationId + " )")
-      .then((result) => {
+  calcWaitTime: (locationId) => {
+    return db.query(queries.select_wait_times, locationId)
+      .then(result => {
+        let waitTimes = [result[0].parsed_time, result[1].parsed_time, result[2].parsed_time];
 
-        // TODO - fix algorithm
+        //sort waitTimes from least to greatest
+        waitTimes.sort((a, b) => {return a-b});
 
-        let runningAverage = 0;
-        let weight;
-        let timestamp;
-        if (result.length > 0) {
-          runningAverage = result[0].estimated_time;
-          timestamp = result[0].timestamp;
-        }
+        //get median
+        let median = waitTimes[1];
 
-        if (minutes < 5.0) {
-          weight = 1.0;
-        } else if (minutes < 10.0) {
-          weight = 0.75;
-        } else if (minutes < 20.0) {
-          weight = 0.5;
-        } else if (minutes < 30.0) {
-          weight = 0.3;
-        } else if (minutes < 40.0) {
-          weight = 0.2;
-        } else if (minutes < 50.0) {
-          weight = 0.1;
+        //get time that last message was sent
+        let newTimeStampValue = result[0].timestamp.getTime();
+        let oldTimeStampValue = result[2].timestamp.getTime();
+
+        //get current time
+        let currentTimeValue = new Date().getTime();
+
+        //find time that has passed since last message was sent in minutes
+        let oldTimePassed = (currentTimeValue - oldTimeStampValue) / 60000;
+        let newTimePassed = (currentTimeValue - newTimeStampValue) / 60000;
+
+        //make sure that data is not too old and that there are no outliers
+        //otherwise return null
+        if (median < 30) {
+          if (waitTimes[1] - waitTimes[0] < 15 && waitTimes[2] - waitTimes[1] < 15 && newTimePassed < 30 && oldTimePassed < 45) {
+            //returns a number that represents which bin the median falls under
+            if (median < 15) {
+              return 1
+            } else if (median >= 15 && median < 30) {
+              return 2
+            } else if (median >= 30 && median < 60) {
+              return 3
+            } else if (median >= 60 && median < 120) {
+              return 4
+            } else if (median >= 120 && median < 240) {
+              return 5
+            } else if (median >= 240 && median < 480) {
+              return 6
+            } else {
+              return null
+            }
+          } else {
+            return null
+          }
         } else {
-          weight = 0.05;
+          if (waitTimes[1] - waitTimes[0] < 30 && waitTimes[2] - waitTimes[1] < 30 && newTimePassed < 30 && oldTimePassed < 45) {
+            //returns a number that represents which bin the median falls under
+            if (median <= 15) {
+              return 1
+            } else if (median > 15 && median <= 30) {
+              return 2
+            } else if (median > 30 && median <= 60) {
+              return 3
+            } else if (median > 60 && median <= 120) {
+              return 4
+            } else if (median > 120 && median <= 240) {
+              return 5
+            } else if (median > 240 && median <= 480) {
+              return 6
+            } else {
+              return null
+            }
+          } else {
+            return null
+          }
         }
-
-        runningAverage = (1 - weight) * runningAverage + weight * minutes;
-        return db.query(queries.insert_time, [new Date(), runningAverage, locationId]);
+      })
+      .then(result => {
+        if (result != null) {
+          return db.query(queries.insert_wait_time, [new Date(), result, locationId]);
+        }
+      })
+      .catch (() => {
+        return null
       });
   },
   getTimes: (location) => {
-    return db.query(queries.select_lowest_time + location.id)
+    return db.query(queries.select_lowest_time, [location.id, location.id])
       .then(lowestTime => {
-        location.lowestTime = lowestTime[0]['min(estimated_time)']
+        location.lowestTime = lowestTime[0]
         return location
       })
       .then(location => {
-        return db.query(queries.select_highest_time + location.id)
+        return db.query(queries.select_highest_time, [location.id, location.id])
           .then(highestTime => {
-            location.highestTime = highestTime[0]['max(estimated_time)']
+            location.highestTime = highestTime[0]
             return location
           })
       })
       .then(location => {
-        return db.query(queries.select_time + location.id + ")")
+        return db.query(queries.select_current_time, location.id)
           .then(currentTime => {
             if (currentTime.length > 0) {
-              location.currentTime = currentTime[0]['estimated_time']
+              location.currentTime = currentTime[0]
             } else {
               location.currentTime = null
             }
             return location
           })
       });
+  },
+  getReports: (location) => {
+    return db.query(queries.select_reports, location.id)
+      .then(reports => ({
+        ...location,
+        reports
+      }))
   },
   createSurveyURL: (location, minutes) => {
     location = location.replace(/ /g, "%20")
