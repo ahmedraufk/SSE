@@ -38,7 +38,7 @@
 #timeLabelContainer {
     position: absolute;
     left: 2em;
-    bottom: 1.5em;
+    bottom: 2em;
 }
 
 #minutes {
@@ -51,6 +51,12 @@
     display: inline-block;
     margin-left: 0.4em;
     margin-bottom: 0;
+}
+
+#noreports {
+    position: absolute;
+    left: 2em;
+    bottom: 0.75em;
 }
 
 #countyWideNoLocationsFound {

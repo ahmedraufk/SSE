@@ -14,7 +14,7 @@ function Location(props) {
   const [highestTime, setHighestTime] = useState(null);
   const [currentTime, setCurrentTime] = useState(null);
   const mapboxElRef = useRef(null);
-  const bucketMap = ["15-30 mins", "30 mins - 1 hr", "1-2 hrs", "2-4 hrs", "4+ hrs"]
+  const bucketMap = ["0-15 mins", "15-30 mins", "30 mins - 1 hr", "1-2 hrs", "2-4 hrs", "4+ hrs"]
 
   useEffect(() => {
     window.scrollTo(0,0);
