@@ -46,7 +46,7 @@ Finally, we need to set up the database structure.
 Now to set up the actual app and website.
 1. Open your terminal and `cd` into the repository
 2. Run `sh install.sh` to install packages for the frontend and backend
-3. Create a new file in the `app` folder called `.env`. This is where your database credentials and other important goes.
+3. Create a new file in the `app` folder called `.env`. This is where your database credentials and other important information goes.
 4. Type all your environment variables with their respective values:
     - NODE_ENV=development
     - PORT=5000
